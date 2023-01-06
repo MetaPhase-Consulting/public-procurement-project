@@ -10,7 +10,7 @@ This is the public version of the DoS Forecast Procurement tool. Users can acces
 
 # Local Setup 
 ### Prerequisites
-- node v18.2.1
+- node v18.12.1
 - yarn
 - existing mysql db
 
@@ -27,3 +27,13 @@ Setup prisma (and restart development server)
 
     npx prisma db push
     yarn dev
+
+
+# Contributing
+Please follow the git branch standard below:
+- lowercase, `-` separated
+- prepended with branch type (feature, update, fix)
+
+For example:
+
+    feature/my-feature-branch-name
