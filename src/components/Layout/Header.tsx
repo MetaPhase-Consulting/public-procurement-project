@@ -1,0 +1,38 @@
+import * as React from 'react';
+
+
+const Header: React.FC = () => {
+    // TODO: USWDS Banner
+    // TODO: Nav Items
+
+    return (
+        <div data-testid="header" className="flex flex-col w-full border-b border-solid border-gray-400">
+            <div className="bg-gray-500 text-gray-50">
+                <div className="container m-auto py-1 flex justify-end">
+                    Utility Navigation Menu Items
+                </div>
+            </div>
+            <div className="bg-gray-200">
+                <div className="container m-auto py-5">
+                    U.S. Department of State
+                </div>
+            </div>
+            <div className="container m-auto py-2">
+                <a href="/" title="Go to Homepage" className="mr-5">
+                    Forecast Tool Home
+                </a>
+                <a href="/forecast" title="Browse Forecast Opportunities" className="mr-5">
+                    Browse Opportunities
+                </a>
+                <a href="/announcements" title="Browse Forecast Opportunities" className="mr-5">
+                    Announcements
+                </a>
+                <a href="/faq" title="Browse Forecast Opportunities">
+                    Frequently Asked Questions
+                </a>
+            </div>
+        </div>
+    );
+}
+
+export default Header;
