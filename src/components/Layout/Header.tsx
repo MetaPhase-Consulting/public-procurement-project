@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import * as React from 'react';
 
 
@@ -18,18 +19,18 @@ const Header: React.FC = () => {
                 </div>
             </div>
             <div className="container m-auto py-2">
-                <a href="/" title="Go to Homepage" className="mr-5">
+                <Link href="/" title="Go to Homepage" className="mr-5">
                     Forecast Tool Home
-                </a>
-                <a href="/forecast" title="Browse Forecast Opportunities" className="mr-5">
+                </Link>
+                <Link href="/forecast" title="Browse Forecast Opportunities" className="mr-5">
                     Browse Opportunities
-                </a>
-                <a href="/announcements" title="Browse Forecast Opportunities" className="mr-5">
+                </Link>
+                <Link href="/announcements" title="Browse Forecast Opportunities" className="mr-5">
                     Announcements
-                </a>
-                <a href="/faq" title="Browse Forecast Opportunities">
+                </Link>
+                <Link href="/faq" title="Browse Forecast Opportunities">
                     Frequently Asked Questions
-                </a>
+                </Link>
             </div>
         </div>
     );
