@@ -1,17 +1,106 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// ===================== SETUP =====================
+
 generator client {
     provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+    provider     = "mysql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
 }
 
-model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+// ===================== SCHEMAS =====================
+
+model Forecast {
+    // Metadata
+    id              String    @id
+    synced          DateTime
+    created         DateTime
+    created_by      String
+    opened          DateTime
+    opened_by       String
+    modified        DateTime?
+    updated         DateTime
+    updated_by      String
+    work_notes      String?
+    work_notes_list String?
+
+    // Main Attributes
+    active                  Boolean     @default(true)
+    estimated_value         String
+    featured                Boolean     @default(false)
+    fiscal_year             String      @db.VarChar(10)
+    incumbent_contractor    String
+    length_of_performance   String
+    long_description        String      @db.MediumText
+    naics_codes             NAICSCode[]
+    new_requirement         String
+    office_symbol           String
+    past_set_aside          String
+    past_competition        String
+    place_of_performance    String
+    poc_email               String
+    poc_name                String
+    requirement_description String
+    target_award_quarter    String
+
+    // Post MVP Attributes
+    // action_type                   String
+    // award_type                    String
+    // anticipated_award_date        DateTime
+    // anticipated_set_aside         String
+    // anticipated_solicitation      String
+    // co_contact                    String
+    // contract_vehicle              String
+    // dollar_value_with_base_option String
+    // security_clearance            String
+}
+
+model Announcement {
+    // Metadata
+    id         String   @id
+    synced     DateTime
+    updated    DateTime
+    updated_by String
+    created    DateTime
+    created_by String
+
+    // Main Attributes
+    name    String
+    active  Boolean   @default(true)
+    title   String?
+    summary String?   @db.MediumText
+    from    DateTime?
+    to      DateTime?
+}
+
+model HighlightMessage {
+    // Metadata
+    id              String   @id
+    synced          DateTime
+    updated         DateTime
+    updated_by      String
+    created         DateTime
+    created_by      String
+    work_notes      String?
+    work_notes_list String?
+
+    // Main Attributes
+    active  Boolean @default(true)
+    message String  @db.MediumText
+}
+
+model NAICSCode {
+    // Metadata
+    id     Int      @id @default(autoincrement())
+    synced DateTime @default(now())
+
+    // Main Attributes
+    code      String     @unique
+    name      String
+    forecasts Forecast[]
 }
