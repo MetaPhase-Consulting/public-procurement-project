@@ -54,7 +54,7 @@ For example:
 ## Pull Request Naming Conventions
 
 Please follow the PR standard below:
-- enclose last 5 scrum task number with with `[PPP-#####]`
+- enclose last 5 scrum task number with `[PPP-#####]`
 - include lowercase short description
 
 For example:
@@ -114,7 +114,7 @@ Example:
 /**
  * This is an example comment block that turns into JSDocs.
  * It is viewable in the code and when the developer hovers
- * over any usage of 'parseData' throughout the code.
+ * over any usage of 'percentify' throughout the code.
  */
 const percentify = (decimalVal: int) => {
 
