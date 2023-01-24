@@ -19,7 +19,7 @@ const Home: NextPage = () => {
     return (
         <Layout>
             <div className='container flex flex-col items-center justify-center gap-12 px-4 py-16'>
-                <h1 className='text-7xl font-extrabold text-purple-900 sm:text-[5rem]'>
+                <h1 className='text-7xl font-extrabold text-purple-900'>
                     Public Procurement Project
                 </h1>
                 <p className='text-2xl text-purple-500'>

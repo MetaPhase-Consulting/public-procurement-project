@@ -1,8 +1,11 @@
 import Link from 'next/link';
 import * as React from 'react';
 
+interface Props {
+    light?: boolean;
+}
 
-const Header: React.FC = () => {
+const Header: React.FC<Props> = props => {
     // TODO: USWDS Banner
     // TODO: Nav Items
 
@@ -13,7 +16,7 @@ const Header: React.FC = () => {
                     Utility Navigation Menu Items
                 </div>
             </div>
-            <div className="bg-gray-200">
+            <div className={props.light ? 'bg-gray-200' : 'bg-gray-800 text-gray-100'}>
                 <div className="container m-auto py-5">
                     U.S. Department of State
                 </div>
