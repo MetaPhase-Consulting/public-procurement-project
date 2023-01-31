@@ -79,7 +79,7 @@ model Forecast {
     long_description                      String?   @db.MediumText
     poc_email                             String?   @db.VarChar(100)
     poc_name                              String?   @db.VarChar(100)
-    requirement_description               String?
+    requirement_description               String?   @db.MediumText
     target_award_quarter                  Int?
 
     // Filterable Attributes
@@ -87,7 +87,7 @@ model Forecast {
     action_type String?
 
     PastCompetition  ActionType? @relation("PastCompetition", fields: [past_competition], references: [id])
-    past_competition String
+    past_competition String?
 
     AwardType  AwardType? @relation(fields: [award_type], references: [id])
     award_type String?
