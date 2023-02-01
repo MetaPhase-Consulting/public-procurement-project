@@ -30,8 +30,8 @@
 }
 
 .ListingCardContentWrapper {
-
     display: flex;
+    justify-content: space-between;
 }
 
 .ListingCardLeft {
@@ -47,7 +47,6 @@ margin-right: -50px;
 }
 
 .TopGridWrapper {
-
     display: flex;
 }
 

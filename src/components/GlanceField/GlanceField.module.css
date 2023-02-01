@@ -8,9 +8,7 @@
     font-size: 12px;
     text-transform: uppercase;
     margin-right: 10px;
-    /* min-width: 170px; */
     text-align: right;
-    /* flex-shrink: 1; */
     width: 50px;
     line-height: 1.5em;
 }
@@ -24,7 +22,6 @@
     height: 50px;
     align-items: center;
     justify-content: center;
-    /* flex-grow: 1; */
     width: 50px;
     flex-grow: 1;
 }
