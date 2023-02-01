@@ -38,6 +38,19 @@ Setup prisma (and restart development server)
     npx prisma db push
     yarn dev
 
+### Database Setup
+
+Once a local db is setup and connected, it is necessary to get the tables schemas created. It is also ideal to seed the database with data from ServiceNow as of 1/25/23 (provided as JSON files).
+
+1. Create Tables
+`npx prisma generate` or `npx prisma db push`
+
+2. Seed Database
+`npx prisma db seed`
+
+3. View Database
+`nps prisma studio`
+
 
 # Contributing
 
