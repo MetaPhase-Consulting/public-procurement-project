@@ -1,0 +1,26 @@
+.RequirementTagWrapper {
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+    background-color: #818181;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    padding: 2px 30px 0 30px;
+}
+
+.new {
+
+}
+
+.recompete {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+}
+
+.RequirementTagInner {
+
+}

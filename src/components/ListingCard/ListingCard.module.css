@@ -1,0 +1,73 @@
+.ListingCard {
+    border: 1px solid #979797;
+    border-bottom: 5px solid black;
+    font-family: 'Public Sans';
+    padding: 10px;
+    line-height: 1.5em;
+    margin: 30px;
+}
+
+.ListingCardInner {
+
+}
+
+.ListingCardHeader {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.Title {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 0;
+    display:inline-block;
+    flex-grow: 1;
+    text-decoration: underline;
+    color: #0082FF;
+    white-space: nowrap;
+}
+
+.ListingCardContentWrapper {
+
+    display: flex;
+}
+
+.ListingCardLeft {
+margin-right: -50px;
+}
+
+.ListingCardRight {
+    max-width: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: -50px;
+}
+
+.TopGridWrapper {
+
+    display: flex;
+}
+
+.TopGridLeft {
+
+}
+
+.TopGridRight {
+
+}
+
+.BottomGridWrapper {
+    max-width: 85%;
+}
+
+.ListingCardFooter {
+    margin-top: 10px;
+}
+
+.Updated {
+    font-size: 12px;
+    text-align: center;
+}

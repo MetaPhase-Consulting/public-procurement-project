@@ -1,0 +1,26 @@
+.LabelDataWrapper {
+    margin-bottom: 15px;
+}
+
+.Label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-right: 15px;
+    min-width: 170px;
+}
+
+.Value {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+
+.Inline {
+    display: flex;
+    align-items: center;
+}
+
+.Inline .Label {
+    text-align: right;
+}
