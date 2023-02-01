@@ -39,7 +39,7 @@ const listingCard = (props) => {
               <GlanceField inline label="Fiscal Year" data={data.fiscal_year} />
               <GlanceField inline label="Target Award Quarter" data={data.target_award_quarter} labelWide />
               <GlanceField inline label="Length of Performance" data={data.length_of_performance} labelWide dataWide />
-              <GlanceField inline label="Security Clearance" data={data.security_clearance} labelWide dataWide />
+              {/*<GlanceField inline label="Security Clearance" data={data.security_clearance} labelWide dataWide />*/}
             </div>
           </div>
         </div>
