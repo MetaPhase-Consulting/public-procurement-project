@@ -1,0 +1,19 @@
+.GlanceIdWrapper {
+    font-weight: bold;
+    font-size: 22px;
+    background-color: #F0F0F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+    padding: 6px 6px;
+}
+
+.GlanceIdInner {
+
+}
+
+.PrefixContent {
+  margin-right: 10px;
+}
+

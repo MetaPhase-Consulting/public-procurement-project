@@ -1,0 +1,32 @@
+.GlanceWrapper {
+    display:flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.GlanceLabel {
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-right: 10px;
+    text-align: right;
+    width: 50px;
+    line-height: 1.5em;
+}
+
+.GlanceData {
+    font-weight: bold;
+    font-size: 23px;
+    border: 1px solid black;
+    width: 50px;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    flex-grow: 1;
+}
+
+
+.Wide {
+    width: 100px !important;
+}
