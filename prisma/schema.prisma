@@ -19,15 +19,15 @@ datasource db {
 
 model Announcement {
     // Metadata
-    id         String   @id @default(uuid())
-    synced     DateTime @default(now())
-    updated    DateTime
-    updated_by String
-    created    DateTime
-    created_by String
-    active     Boolean  @default(true)
-    glyph      String
-    public     Boolean  @default(true)
+    id         String    @id @default(uuid())
+    synced     DateTime  @default(now())
+    updated    DateTime?
+    updated_by String?
+    created    DateTime?
+    created_by String?
+    active     Boolean   @default(true)
+    glyph      String?
+    public     Boolean   @default(true)
 
     // Main Attributes
     name    String
@@ -39,16 +39,16 @@ model Announcement {
 
 model HighlightMessage {
     // Metadata
-    id              String   @id @default(uuid())
-    message_id      String   @unique
-    synced          DateTime @default(now())
-    updated         DateTime
-    updated_by      String
-    created         DateTime
-    created_by      String
+    id              String    @id @default(uuid())
+    message_id      String    @unique
+    synced          DateTime  @default(now())
+    updated         DateTime?
+    updated_by      String?
+    created         DateTime?
+    created_by      String?
     work_notes      String?
     work_notes_list String?
-    active          Boolean  @default(true)
+    active          Boolean   @default(true)
     state           Int?
 
     // Main Attributes
