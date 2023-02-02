@@ -26,6 +26,8 @@ model Announcement {
     created    DateTime
     created_by String
     active     Boolean  @default(true)
+    glyph      String
+    public     Boolean  @default(true)
 
     // Main Attributes
     name    String
@@ -67,6 +69,7 @@ model Forecast {
     work_notes_list String?
     active          Boolean   @default(true)
     featured        Boolean   @default(false)
+    archive         Boolean   @default(false)
     state           Int?
 
     // Flat Attributes
