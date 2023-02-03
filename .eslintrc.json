@@ -10,6 +10,7 @@
     "quotes": ["warn", "single"],
     "indent": ["warn", 4],
     "@typescript-eslint/no-empty-function": 1,
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       { 
