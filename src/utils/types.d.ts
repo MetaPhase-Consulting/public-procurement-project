@@ -1,12 +1,11 @@
-
 export interface Announcement {
     // Metadata
     id: string,
     synced: Date,
-    updated?: Date,
-    updated_by?: string,
     created?: Date,
     created_by?: string,
+    updated?: Date,
+    updated_by?: string,
     active: boolean,
     glyph?: boolean,
     public: boolean,
@@ -22,12 +21,12 @@ export interface Announcement {
 export interface HighlightMessage {
     // Metadata
     id: string,
-    message_id: string,
+    number: string,
     synced: Date,
-    updated?: Date,
-    updated_by?: string,
     created?: Date,
     created_by?: string,
+    updated?: Date,
+    updated_by?: string,
     work_notes?: string,
     work_notes_list?: string,
     active: boolean,
@@ -40,7 +39,7 @@ export interface HighlightMessage {
 export interface Forecast {
     // Metadata
     id: string;
-    listing_id: string,
+    number: string,
     synced: Date,
     created?: Date,
     created_by?: string,
