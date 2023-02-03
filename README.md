@@ -140,13 +140,12 @@ const percentify = (decimalVal: int) => {
 
 # Data Dictionary
 
-**SN = Service Now**
-
-
 The following tables exist in the Public Procurement Forecast Tool's database. This domain design was translated directly from the ServiceNow models. Each attribute corresponds with a field in a SN. For any fields without an SN equivalent, it may either be specific to our system or is not yet exported from the SN backend.
 
 NOTE: For the proof of concept, we are not using any reference tables and we're only using flat strings in each attribute. For the MVP, any filterable attribute on table `Forecast` will have a reference table and `Forecast` will reference the IDs of the object it relates to.
 
+SN = Service Now
+? = Optional Attribute
 
 ### Announcement
 
