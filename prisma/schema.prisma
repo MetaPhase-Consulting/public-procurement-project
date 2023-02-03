@@ -21,10 +21,10 @@ model Announcement {
     // Metadata
     id         String    @id @default(uuid())
     synced     DateTime  @default(now())
-    updated    DateTime?
-    updated_by String?
     created    DateTime?
     created_by String?
+    updated    DateTime?
+    updated_by String?
     active     Boolean   @default(true)
     glyph      String?
     public     Boolean   @default(true)
@@ -40,12 +40,12 @@ model Announcement {
 model HighlightMessage {
     // Metadata
     id              String    @id @default(uuid())
-    message_id      String    @unique
+    number          String    @unique
     synced          DateTime  @default(now())
-    updated         DateTime?
-    updated_by      String?
     created         DateTime?
     created_by      String?
+    updated         DateTime?
+    updated_by      String?
     work_notes      String?
     work_notes_list String?
     active          Boolean   @default(true)
@@ -58,20 +58,22 @@ model HighlightMessage {
 model Forecast {
     // Metadata
     id              String    @id @default(uuid())
-    listing_id      String    @unique
+    number          String    @unique
+
     synced          DateTime  @default(now())
     created         DateTime?
     created_by      String?
+    modified        DateTime?
     opened          DateTime?
     opened_by       String?
-    modified        DateTime?
     updated         DateTime?
     updated_by      String?
+
     work_notes      String?
     work_notes_list String?
     active          Boolean   @default(true)
-    featured        Boolean   @default(false)
     archive         Boolean   @default(false)
+    featured        Boolean   @default(false)
     state           Int?
 
     // Flat Attributes
