@@ -4,10 +4,11 @@ import LabelValue from '../LabelValue/LabelValue';
 import GlanceField from '../GlanceField/GlanceField';
 import RequirementTag from '../RequirementTag/RequirementTag';
 import GlanceId from '../GlanceId/GlanceId';
+import type { Forecast } from '../../../../utils/types';
 
 interface Props {
     // TODO: Add in type of Forecast object
-    data: any;
+    data: Forecast;
 }
 
 const listingCard: React.FC<Props> = (props) => {
@@ -18,43 +19,43 @@ const listingCard: React.FC<Props> = (props) => {
         <div className={classes.ListingCard}>
             <div className={classes.ListingCardInner}>
                 <div className={classes.ListingCardHeader}>
-                    <GlanceId value={data.listing_id} />
+                    <GlanceId value={data.number} />
                     <div className={classes.Title}>
                         <a href={data.id}>
-                            {data.title}
+                            {data.requirement_description}
                         </a>
                     </div>
-                    <RequirementTag value={data.requirement_type} />
+                    <RequirementTag value={data.new_requirement ?? ''} />
                 </div>
                 <div className={classes.ListingCardContentWrapper}>
                     <div className={classes.ListingCardLeft}>
                         <div className={classes.TopGridWrapper}>
                             <div className={classes.TopGridLeft}>
-                                <LabelValue inline label="Office Symbol" value={data.office_symbol} />
-                                <LabelValue inline label="Past Competition" value={data.past_competition} />
+                                <LabelValue inline label="Office Symbol" value={data.office_symbol ?? ''} />
+                                <LabelValue inline label="Past Competition" value={data.past_competition ?? ''} />
                             </div>
                             <div className={classes.TopGridright}>
-                                <LabelValue inline label="Estimated Value" value={data.estimated_value} />
-                                <LabelValue inline label="Place of Performance" value={data.place_of_performance} />
+                                <LabelValue inline label="Estimated Value" value={data.estimated_value ?? ''} />
+                                <LabelValue inline label="Place of Performance" value={data.place_of_performance ?? ''} />
                             </div>
                         </div>
                         <div className={classes.BottomGridWrapper}>
-                            <LabelValue inline label="Past Set-Aside" value={data.past_set_aside} />
-                            <LabelValue inline label="Contract Vehicle" value={data.contract_vehicle} />
-                            <LabelValue inline label="NAICS Codes" value={data.naics_code} />
+                            <LabelValue inline label="Past Set-Aside" value={data.past_set_aside ?? ''} />
+                            <LabelValue inline label="Contract Vehicle" value={data.contract_vehicle ?? ''} />
+                            <LabelValue inline label="NAICS Codes" value={data.naics_code ?? ''} />
                         </div>
                     </div>
                     <div className={classes.ListingCardRight}>
-                        <GlanceField inline label="Fiscal Year" data={data.fiscal_year} />
-                        <GlanceField inline label="Target Award Quarter" data={data.target_award_quarter} labelWide />
-                        <GlanceField inline label="Length of Performance" data={data.length_of_performance} labelWide dataWide />
+                        <GlanceField inline label="Fiscal Year" data={data.fiscal_year ?? ''} />
+                        <GlanceField inline label="Target Award Quarter" data={data.target_award_quarter ?? ''} labelWide />
+                        <GlanceField inline label="Length of Performance" data={data.length_of_performance ?? ''} labelWide dataWide />
                         {/*<GlanceField inline label="Security Clearance" data={data.security_clearance} labelWide dataWide />*/}
                     </div>
                 </div>
             </div>
             <div className={classes.ListingCardFooter}>
                 <div className={classes.Updated}>
-                    Record updated {data.record_updated}
+                    <>Record updated {data.updated}</>
                 </div>
             </div>
         </div>
