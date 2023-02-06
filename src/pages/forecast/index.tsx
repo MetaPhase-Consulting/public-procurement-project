@@ -1,13 +1,14 @@
 import React from 'react';
 import { type NextPage } from 'next';
 import {
-    Breadcrumb, BreadcrumbBar, BreadcrumbLink, Card, CardGroup, Grid, GridContainer,
+    Breadcrumb, BreadcrumbBar, BreadcrumbLink, CardGroup, Grid, GridContainer,
     Pagination, Search
 } from '@trussworks/react-uswds';
 
+import { api } from '../../utils/api';
 import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/ForecastList/Filters/Filters';
-import { api } from '../../utils/api';
+import ListingCard from '../../components/ForecastList/Card/ListingCard/ListingCard';
 
 type FilterState = {
     new_requirement: string[],
@@ -143,13 +144,7 @@ const ForecastList: NextPage = () => {
                             <CardGroup className="flex flex-col w-full m-0">
                                 {data && data.map(forecast => {
                                     return (
-                                        <Card key={forecast.id}>
-                                            <span>{forecast.number}</span>
-                                            <span>{forecast.new_requirement}</span>
-                                            <span>{forecast.estimated_value}</span>
-                                            <span>{forecast.past_set_aside}</span>
-                                            <span>{forecast.requirement_description}</span>
-                                        </Card>
+                                        <ListingCard key={forecast.number} data={forecast} />
                                     )
                                 })}
                             </CardGroup>
