@@ -1,19 +1,20 @@
 import React from 'react';
-import classes from './ListingCard.module.css';
-import LabelValue from '../LabelValue/LabelValue';
-import GlanceField from '../GlanceField/GlanceField';
-import RequirementTag from '../RequirementTag/RequirementTag';
-import GlanceId from '../GlanceId/GlanceId';
 import type { Forecast } from '../../../../utils/types';
+import GlanceId from '../GlanceId/GlanceId';
+import GlanceField from '../GlanceField/GlanceField';
+import LabelValue from '../LabelValue/LabelValue';
+import RequirementTag from '../RequirementTag/RequirementTag';
+import classes from './ListingCard.module.css';
 
 interface Props {
-    // TODO: Add in type of Forecast object
     data: Forecast;
 }
 
-const listingCard: React.FC<Props> = (props) => {
+const ListingCard: React.FC<Props> = (props) => {
 
     const { data } = props;
+
+    const updated = data.updated ? ((data.updated.getMonth() + 1) + '/' + data.updated.getDate() + '/' + data.updated.getFullYear()) : '';
 
     return (
         <div className={classes.ListingCard}>
@@ -21,7 +22,7 @@ const listingCard: React.FC<Props> = (props) => {
                 <div className={classes.ListingCardHeader}>
                     <GlanceId value={data.number} />
                     <div className={classes.Title}>
-                        <a href={data.id}>
+                        <a href={'/forecast/' + data.number}>
                             {data.requirement_description}
                         </a>
                     </div>
@@ -53,13 +54,13 @@ const listingCard: React.FC<Props> = (props) => {
                     </div>
                 </div>
             </div>
-            <div className={classes.ListingCardFooter}>
+            {updated && <div className={classes.ListingCardFooter}>
                 <div className={classes.Updated}>
-                    <>Record updated {data.updated}</>
+                    <>Record updated {updated}</>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }
 
-export default listingCard;
+export default ListingCard;
