@@ -23,7 +23,7 @@ async function main() {
                 update: {},
                 create: {
                     id: forecast.sys_id,
-                    listing_id: forecast.number ?? '0',
+                    number: forecast.number ?? '0',
                     synced: new Date(),
                     created: new Date(forecast.sys_created_on),
                     modified: new Date(forecast.u_modified),
