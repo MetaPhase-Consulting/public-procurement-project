@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Accordion, Checkbox } from '@trussworks/react-uswds';
 import type { FilterSection } from './FilterSections';
 import { newRequirement, estimatedValue, pastSetAside } from './FilterSections';
-import classes from '../ForecastList.module.css';
 
 interface Props {
     updateFilters: (event: React.ChangeEvent<HTMLInputElement>, field: string, value: string) => void;
