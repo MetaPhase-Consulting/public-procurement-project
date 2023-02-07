@@ -1,15 +1,12 @@
 .ListingCard {
     border: 1px solid #979797;
     border-bottom: 5px solid black;
-    font-family: 'Public Sans';
     padding: 10px;
     line-height: 1.5em;
-    margin: 30px;
+    margin: 10px 0px;
 }
 
-.ListingCardInner {
-
-}
+.ListingCardInner {}
 
 .ListingCardHeader {
     display: flex;
@@ -21,12 +18,10 @@
 .Title {
     font-weight: bold;
     font-size: 22px;
-    line-height: 0;
-    display:inline-block;
+    display: inline-block;
     flex-grow: 1;
     text-decoration: underline;
     color: #0082FF;
-    white-space: nowrap;
 }
 
 .ListingCardContentWrapper {
@@ -35,7 +30,7 @@
 }
 
 .ListingCardLeft {
-margin-right: -50px;
+    margin-right: -50px;
 }
 
 .ListingCardRight {
@@ -50,13 +45,9 @@ margin-right: -50px;
     display: flex;
 }
 
-.TopGridLeft {
+.TopGridLeft {}
 
-}
-
-.TopGridRight {
-
-}
+.TopGridRight {}
 
 .BottomGridWrapper {
     max-width: 85%;
