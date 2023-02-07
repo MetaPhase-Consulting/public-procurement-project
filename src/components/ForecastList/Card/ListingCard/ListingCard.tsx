@@ -4,6 +4,7 @@ import GlanceId from '../GlanceId/GlanceId';
 import GlanceField from '../GlanceField/GlanceField';
 import LabelValue from '../LabelValue/LabelValue';
 import RequirementTag from '../RequirementTag/RequirementTag';
+import { convertNumber, convertDuration, convertQuarter } from '../../../../utils/utils';
 import classes from './ListingCard.module.css';
 
 interface Props {
@@ -16,26 +17,6 @@ const ListingCard: React.FC<Props> = (props) => {
 
     const updated = data.updated ? ((data.updated.getMonth() + 1) + '/' + data.updated.getDate() + '/' + data.updated.getFullYear()) : '';
 
-    const convertNumber = (number: string) => {
-        if (number.slice(0, 7) == 'DOS-OPP') {
-            return number.slice(7, number.length);
-        }
-        return number;
-    }
-
-    const convertDuration = (duration?: string | null) => {
-        if (duration) {
-            if (duration == 'One year or less') return '<1 y';
-            if (duration == 'One to three years') return '1-3 y';
-            if (duration == 'Three to five years') return '3-5 y';
-            if (duration == 'More than five years') return '>5 y';
-            if (duration == '1 time purchase') return '1 time';
-            if (duration.substring(duration.length - 5) == 'years') {
-                return duration.substring(0, duration.indexOf(' ')) + ' y';
-            }
-        }
-        return undefined;
-    }
 
     return (
         <div className={classes.ListingCard}>
@@ -69,7 +50,7 @@ const ListingCard: React.FC<Props> = (props) => {
                     </div>
                     <div className={classes.ListingCardRight}>
                         <GlanceField inline label="Fiscal Year" data={data.fiscal_year ?? ''} />
-                        <GlanceField inline label="Target Award Quarter" data={data.target_award_quarter ?? ''} labelWide />
+                        <GlanceField inline label="Target Award Quarter" data={convertQuarter(data.target_award_quarter)} labelWide />
                         <GlanceField inline label="Length of Performance" data={convertDuration(data.length_of_performance) ?? ''} labelWide dataWide />
                         {/*<GlanceField inline label="Security Clearance" data={data.security_clearance} labelWide dataWide />*/}
                     </div>
