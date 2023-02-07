@@ -22,5 +22,6 @@
 }
 
 .RequirementTagInner {
-
+    line-height: 1;
+    padding-bottom: 2px;
 }
