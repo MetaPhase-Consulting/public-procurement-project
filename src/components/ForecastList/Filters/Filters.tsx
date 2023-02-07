@@ -31,7 +31,7 @@ const Filters: React.FC<Props> = (props) => {
                             label={o.label ?? o.value}
                             className={i == 0 ? '-mt-4 checkbox-label' : 'checkbox-label'}
                             onChange={(event) => updateFilters(event, o.field, o.value)}
-                            defaultChecked={getFilterIndex(o.field, o.value) > -1}
+                            checked={getFilterIndex(o.field, o.value) > -1}
                         />
                     )
                 })}
