@@ -6,6 +6,7 @@ import { newRequirement, estimatedValue, pastSetAside } from './FilterSections';
 interface Props {
     updateFilters: (event: React.ChangeEvent<HTMLInputElement>, field: string, value: string) => void;
     getFilterIndex: (field: string, value: string) => any;
+    clearFilters: (field?: string) => void;
 }
 
 /**
@@ -16,7 +17,7 @@ interface Props {
  * various input options to specificy the constraints (e.g., checkbox).
  */
 const Filters: React.FC<Props> = (props) => {
-    const { updateFilters, getFilterIndex } = props;
+    const { updateFilters, getFilterIndex, clearFilters } = props;
 
     const createCheckboxes = (sections: FilterSection[]) => {
         return (
@@ -40,13 +41,16 @@ const Filters: React.FC<Props> = (props) => {
 
     return (
         <div data-testid='filters-column' className="flex flex-col filter-section">
-            <div className="flex flex-row justify-between">
-                <p className="uppercase font-bold">
+            <div className="flex flex-row justify-between items-center pb-3">
+                <p className="uppercase font-bold text-xl">
                     Filters
                 </p>
-                <p className="underline text-sm">
+                <button
+                    className="underline text-sm clear-button"
+                    onClick={() => { clearFilters() }}
+                >
                     Clear All
-                </p>
+                </button>
             </div>
             <div className="flex flex-col bg-gray-200 w-full p-3">
                 <Accordion

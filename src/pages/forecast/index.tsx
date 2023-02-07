@@ -100,6 +100,25 @@ const ForecastList: NextPage = () => {
         setFilters(newFilters);
     }
 
+    /**
+     * Helper function that clears the filters for a specified field or
+     * all filters in the filter state.
+     */
+    const clearFilters = (field?: string) => {
+        if (!field) {
+            setFilters({
+                new_requirement: [],
+                estimated_value: [],
+                past_set_aside: [],
+            })
+        }
+        if (field && filters.hasOwnProperty(field)) {
+            const f: any = filters;
+            f[field] = [];
+            setFilters({ f } as unknown as FilterState)
+        }
+    }
+
 
     // =================== QUERY FUNCTIONS ===================
 
@@ -121,15 +140,21 @@ const ForecastList: NextPage = () => {
                     </Breadcrumb>
                     <Breadcrumb>Browse Opportunities</Breadcrumb>
                 </BreadcrumbBar>
-                <h1 className="sm:text-[2rem]">
+                <h1 className="sm:text-[2rem] pb-8">
                     Browse Forecast Opportunities
                 </h1>
                 <GridContainer className="max-w-none p-1">
                     <Grid row gap="lg">
                         <Grid tablet={{ col: 6 }} desktop={{ col: 3 }}>
-                            <Filters updateFilters={updateFilters} getFilterIndex={getFilterIndex} />
+                            <div className='pr-8'>
+                                <Filters
+                                    updateFilters={updateFilters}
+                                    getFilterIndex={getFilterIndex}
+                                    clearFilters={clearFilters}
+                                />
+                            </div>
                         </Grid>
-                        <Grid tablet={{ col: 6 }} desktop={{ col: 9 }} className="">
+                        <Grid tablet={{ col: 6 }} desktop={{ col: 9 }}>
                             <div className="flex justify-end">
                                 <Search
                                     size="small"
