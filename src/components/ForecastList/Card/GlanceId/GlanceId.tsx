@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './GlanceId.module.css';
 
 interface Props {
-    value: string | number;
+    value: React.ReactNode;
     children?: React.ReactNode;
 }
 
