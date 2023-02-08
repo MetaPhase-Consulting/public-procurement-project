@@ -4,7 +4,7 @@ import GlanceId from '../GlanceId/GlanceId';
 import GlanceField from '../GlanceField/GlanceField';
 import LabelValue from '../LabelValue/LabelValue';
 import RequirementTag from '../RequirementTag/RequirementTag';
-import { convertNumber, convertDuration, convertQuarter } from '../../../../utils/utils';
+import { convertNumber, convertDuration, convertQuarter, convertDate } from '../../../../utils/utils';
 import classes from './ListingCard.module.css';
 
 interface Props {
@@ -15,8 +15,7 @@ const ListingCard: React.FC<Props> = (props) => {
 
     const { data } = props;
 
-    const updated = data.updated ? ((data.updated.getMonth() + 1) + '/' + data.updated.getDate() + '/' + data.updated.getFullYear()) : '';
-
+    const updated = data.updated ? convertDate(data.updated) : '';
 
     return (
         <div className={classes.ListingCard}>
