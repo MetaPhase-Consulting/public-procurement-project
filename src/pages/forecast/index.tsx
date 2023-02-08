@@ -31,9 +31,9 @@ const ForecastList: NextPage = () => {
     const [page, setPage] = React.useState(1);
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filters, setFilters] = React.useState<FilterState>({
-        new_requirement: ['New'],
-        estimated_value: ['$250k-500K'],
-        past_set_aside: ['N/A'],
+        new_requirement: [],
+        estimated_value: [],
+        past_set_aside: [],
     })
 
 
@@ -134,7 +134,7 @@ const ForecastList: NextPage = () => {
     return (
         <Layout>
             <div className="container m-auto px-3 py-6">
-                <BreadcrumbBar className="py-2">
+                <BreadcrumbBar className="py-2 text-sm">
                     <Breadcrumb>
                         <BreadcrumbLink href="/">Home</BreadcrumbLink>
                     </Breadcrumb>
