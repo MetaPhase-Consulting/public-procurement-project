@@ -22,3 +22,7 @@ export const convertDuration = (duration?: string | null) => {
 export const convertQuarter = (quarter?: number | null) => {
     return quarter ? ('Q' + quarter) : '';
 }
+
+export const convertDate = (date: Date | null) => {
+    return date ? ((date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()) : '';
+}
