@@ -142,10 +142,10 @@ const ForecastList: NextPage = () => {
                     </Breadcrumb>
                     <Breadcrumb>Browse Opportunities</Breadcrumb>
                 </BreadcrumbBar>
-                <h1 className="featured-content__headline">
+                <h1 className="featured-content__headline mb-10">
                     Browse Forecast Opportunities
                 </h1>
-                <GridContainer className="max-w-none p-1">
+                <GridContainer className="max-w-none p-1 w-full">
                     <Grid row gap="lg">
                         <Grid tablet={{ col: 6 }} desktop={{ col: 3 }}>
                             <div className='pr-8'>

@@ -33,7 +33,8 @@ const Forecast: NextPage = () => {
         return (
             <Layout title="Opportunity Detail">
                 <SubNavigation selected='Browse Opportunities' addMargin/>
-                <div className="row">
+                <div className="row ForecastDetail">
+                  <div className="max-w-5xl">
                     <BreadcrumbBar className="py-2">
                         <Breadcrumb>
                             <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -43,33 +44,36 @@ const Forecast: NextPage = () => {
                         </Breadcrumb>
                         <Breadcrumb>{data.number}</Breadcrumb>
                     </BreadcrumbBar>
-                  <h1 className="featured-content__headline">
+                  <h1 className="featured-content__headline mb-5">
                         {data.requirement_description}
                     </h1>
+                    <div className="margin-bottom-5">
+
+
+
+                      <i className="ppp-chevron-left"></i> <a className="BackToResults pb-15" href="/forecast">Back to Search Results</a>
+                    </div>
                     <div>
-                        <div className='flex flex-row'>
-                            <GlanceId
-                                value={<>
-                                    <RequirementTag value={data.new_requirement ?? ''} />
-                                    # {convertNumber(data.number)}
-                                </>}
-                            />
-                            <GlanceField inline label="Fiscal Year" data={data.fiscal_year ?? ''} />
-                            <GlanceField inline label="Target Award Quarter" data={convertQuarter(data.target_award_quarter)} labelWide />
-                            <GlanceField inline label="Length of Performance" data={convertDuration(data.length_of_performance) ?? ''} labelWide dataWide />
+                        <div className='flex flex-row items-center gap-10 mb-5'>
+                            <GlanceId value={convertNumber(data.number)}>
+                              <RequirementTag value={data.new_requirement ?? ''} />
+                            </GlanceId>
+                            <GlanceField inline label="Fiscal Year" data={data.fiscal_year ?? ''} NoMargin />
+                            <GlanceField inline label="Target Award Quarter" data={convertQuarter(data.target_award_quarter)} labelWide NoMargin />
+                            <GlanceField inline label="Length of Performance" data={convertDuration(data.length_of_performance) ?? ''} labelWide dataWide NoMargin/>
                         </div>
-                        <div className='border-black border-t border-b'>
+                        <div className='border-black border-t border-b pb-3 pt-3 mb-10'>
                             {updated &&
                                 <div>
-                                    <span>Record updated {updated}</span>
+                                    <span className="RecordUpdated">Record updated {updated}</span>
                                 </div>
                             }
                         </div>
-                        <div className='flex flex-row'>
-                            <div>
+                        <div className='flex flex-row space-x-4 gap-20'>
+                            <div className="Description max-w-2xl">
                                 {data.long_description ?? longText}
                             </div>
-                            <div>
+                            <div className="GlanceColumn">
                                 <LabelValue label="Estimated Value" value={data.estimated_value ?? ''} />
                                 <LabelValue label="Place of Performance" value={data.place_of_performance ?? ''} />
                                 <LabelValue label="Office Symbol" value={data.office_symbol ?? ''} />
@@ -83,6 +87,7 @@ const Forecast: NextPage = () => {
 
                         </div>
                     </div>
+                  </div>
                 </div>
             </Layout>
         );

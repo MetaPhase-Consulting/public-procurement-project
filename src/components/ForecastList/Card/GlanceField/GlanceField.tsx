@@ -13,7 +13,7 @@ const GlanceField: React.FC<Props> = (props) => {
     return (
         <div className={classes.GlanceField}>
             <div className={classes.GlanceFieldInner}>
-                <div className={classes.GlanceWrapper}>
+                <div className={[classes.GlanceWrapper, props.NoMargin ? classes.NoMargin : ''].join(' ')}>
                     <div className={[classes.GlanceLabel, props.labelWide ? classes.Wide : ''].join(' ')}>
                         {props.label}
                     </div>

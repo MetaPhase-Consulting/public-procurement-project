@@ -31,3 +31,7 @@
 .Wide {
     width: 100px !important;
 }
+
+.NoMargin {
+    margin-bottom: 0;
+}

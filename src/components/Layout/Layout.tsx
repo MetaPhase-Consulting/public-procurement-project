@@ -29,7 +29,7 @@ const Layout: React.FC<Props> = props => {
             <main class="">
                 <GovBanner />
                 <Header />
-                <div style={{ minHeight: 'calc(100vh - 72px)' }} className="w-full">
+                <div style={{ minHeight: 'calc(100vh - 300px)' }} className="w-full">
                     {children}
                 </div>
                 <Footer />
