@@ -86,7 +86,7 @@ const Forecast: NextPage = () => {
                                     <LabelValue label="Office Symbol" value={data.office_symbol ?? ''} />
                                     <LabelValue label="Past Competition" value={data.past_competition ?? ''} />
                                     <LabelValue label="Past Set-Aside" value={data.past_set_aside ?? ''} />
-                                    <LabelValue label="Contract Vehicle" value={data.contract_vehicle ?? ''} />
+                                    <LabelValue label="Contract Vehicle" value={data.contract_vehicle ?? 'N/A'} />
                                     <LabelValue label="NAICS Codes" value={data.naics_code ?? ''} />
                                 </div>
                             </div>
