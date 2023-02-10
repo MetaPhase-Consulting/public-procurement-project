@@ -1,0 +1,24 @@
+.filter-section .usa-accordion__button {
+    background-color: transparent !important;
+    padding: 0.5rem 0rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    background-position: right 0rem center;
+    align-items: center;
+}
+
+.filter-section .usa-checkbox__label {
+    font-size: 1rem;
+    padding-left: 1.75rem;
+}
+
+.filter-section .usa-checkbox__label::before {
+    height: 1rem;
+    width: 1rem;
+    margin-top: 0.15rem;
+}
+
+.clear-button {
+    cursor: pointer;
+    background-color: transparent !important;
+}

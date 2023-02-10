@@ -1,27 +1,29 @@
 import React from 'react';
-import classes from './ListingCard.module.css';
-import LabelValue from '../LabelValue/LabelValue';
-import GlanceField from '../GlanceField/GlanceField';
-import RequirementTag from '../RequirementTag/RequirementTag';
-import GlanceId from '../GlanceId/GlanceId';
 import type { Forecast } from '../../../../utils/types';
+import GlanceId from '../GlanceId/GlanceId';
+import GlanceField from '../GlanceField/GlanceField';
+import LabelValue from '../LabelValue/LabelValue';
+import RequirementTag from '../RequirementTag/RequirementTag';
+import { convertNumber, convertDuration, convertQuarter, convertDate } from '../../../../utils/utils';
+import classes from './ListingCard.module.css';
 
 interface Props {
-    // TODO: Add in type of Forecast object
     data: Forecast;
 }
 
-const listingCard: React.FC<Props> = (props) => {
+const ListingCard: React.FC<Props> = (props) => {
 
     const { data } = props;
+
+    const updated = data.updated ? convertDate(data.updated) : '';
 
     return (
         <div className={classes.ListingCard}>
             <div className={classes.ListingCardInner}>
                 <div className={classes.ListingCardHeader}>
-                    <GlanceId value={data.number} />
+                    <GlanceId value={convertNumber(data.number)} />
                     <div className={classes.Title}>
-                        <a href={data.id}>
+                        <a href={'/forecast/' + convertNumber(data.number)}>
                             {data.requirement_description}
                         </a>
                     </div>
@@ -41,25 +43,25 @@ const listingCard: React.FC<Props> = (props) => {
                         </div>
                         <div className={classes.BottomGridWrapper}>
                             <LabelValue inline label="Past Set-Aside" value={data.past_set_aside ?? ''} />
-                            <LabelValue inline label="Contract Vehicle" value={data.contract_vehicle ?? ''} />
+                            <LabelValue inline label="Contract Vehicle" value={data.contract_vehicle ?? 'N/A'} />
                             <LabelValue inline label="NAICS Codes" value={data.naics_code ?? ''} />
                         </div>
                     </div>
                     <div className={classes.ListingCardRight}>
                         <GlanceField inline label="Fiscal Year" data={data.fiscal_year ?? ''} />
-                        <GlanceField inline label="Target Award Quarter" data={data.target_award_quarter ?? ''} labelWide />
-                        <GlanceField inline label="Length of Performance" data={data.length_of_performance ?? ''} labelWide dataWide />
+                        <GlanceField inline label="Target Award Quarter" data={convertQuarter(data.target_award_quarter)} labelWide />
+                        <GlanceField inline label="Length of Performance" data={convertDuration(data.length_of_performance) ?? ''} labelWide dataWide />
                         {/*<GlanceField inline label="Security Clearance" data={data.security_clearance} labelWide dataWide />*/}
                     </div>
                 </div>
             </div>
-            <div className={classes.ListingCardFooter}>
+            {updated && <div className={classes.ListingCardFooter}>
                 <div className={classes.Updated}>
-                    <>Record updated {data.updated}</>
+                    <>Record updated {updated}</>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }
 
-export default listingCard;
+export default ListingCard;

@@ -1,32 +1,29 @@
 .ListingCard {
     border: 1px solid #979797;
     border-bottom: 5px solid black;
-    font-family: 'Public Sans';
     padding: 10px;
     line-height: 1.5em;
-    margin: 30px;
+    margin: 10px 0px;
 }
 
-.ListingCardInner {
-
-}
+.ListingCardInner {}
 
 .ListingCardHeader {
     display: flex;
     gap: 10px;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 20px;
 }
 
 .Title {
     font-weight: bold;
     font-size: 22px;
-    line-height: 0;
-    display:inline-block;
     flex-grow: 1;
     text-decoration: underline;
     color: #0082FF;
-    white-space: nowrap;
+    margin-top: 3px;
+    margin-right: 50px;
+    line-height: 1.25;
 }
 
 .ListingCardContentWrapper {
@@ -35,7 +32,7 @@
 }
 
 .ListingCardLeft {
-margin-right: -50px;
+    margin-right: -40px;
 }
 
 .ListingCardRight {
@@ -50,13 +47,15 @@ margin-right: -50px;
     display: flex;
 }
 
-.TopGridLeft {
-
+@media (max-width: 70em) {
+    .TopGridWrapper {
+        flex-direction: column;
+    }
 }
 
-.TopGridRight {
+.TopGridLeft {}
 
-}
+.TopGridRight {}
 
 .BottomGridWrapper {
     max-width: 85%;

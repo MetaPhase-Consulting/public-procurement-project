@@ -9,7 +9,7 @@ interface Props {
     inline?: boolean;
 }
 
-const glanceField: React.FC<Props> = (props) => {
+const GlanceField: React.FC<Props> = (props) => {
     return (
         <div className={classes.GlanceField}>
             <div className={classes.GlanceFieldInner}>
@@ -26,4 +26,4 @@ const glanceField: React.FC<Props> = (props) => {
     )
 }
 
-export default glanceField;
+export default GlanceField;
