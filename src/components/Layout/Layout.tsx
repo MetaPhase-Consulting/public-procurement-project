@@ -1,9 +1,9 @@
+import React from 'react';
 import Head from 'next/head';
-import * as React from 'react';
+import { GovBanner } from '@trussworks/react-uswds';
+
 import Footer from './Footer';
 import Header from './Header';
-import { GovBanner } from '@trussworks/react-uswds';
-import classes from './Layout.module.css';
 
 interface Props {
     children: React.ReactNode;
@@ -26,10 +26,10 @@ const Layout: React.FC<Props> = props => {
             <Head>
                 <title>{title ?? 'Procurement Forecast Tool'}</title>
             </Head>
-            <main class="">
+            <main>
                 <GovBanner />
                 <Header />
-                <div style={{ minHeight: 'calc(100vh - 500px)' }} className="w-full">
+                <div style={{ minHeight: 'calc(100vh - 500px)', height: '100%' }} className="w-full">
                     {children}
                 </div>
                 <Footer />
