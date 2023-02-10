@@ -8,6 +8,7 @@ import GlanceId from '../../components/ForecastList/Card/GlanceId/GlanceId';
 import RequirementTag from '../../components/ForecastList/Card/RequirementTag/RequirementTag';
 import { convertNumber, convertDuration, convertQuarter, convertDate } from '../../utils/utils';
 import LabelValue from '../../components/ForecastList/Card/LabelValue/LabelValue';
+import SubNavigation from '../../components/Layout/SubNavigation';
 
 // TODO: Don't let Next use the name of this file as a part of the route, dynamically pull the slug of the forecast object
 const Forecast: NextPage = () => {
@@ -26,11 +27,13 @@ const Forecast: NextPage = () => {
             Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
         </p>
     )
+
     if (data) {
         const updated = data.updated ? convertDate(data.updated) : null;
         return (
-            <Layout title="Forecast Opportunity Name">
-                <div className="container m-auto px-3 py-6">
+            <Layout title="Opportunity Detail">
+                <SubNavigation selected='Browse Opportunities' addMargin/>
+                <div className="row">
                     <BreadcrumbBar className="py-2">
                         <Breadcrumb>
                             <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -40,7 +43,7 @@ const Forecast: NextPage = () => {
                         </Breadcrumb>
                         <Breadcrumb>{data.number}</Breadcrumb>
                     </BreadcrumbBar>
-                    <h1 className="sm:text-[2rem] pb-8">
+                  <h1 className="featured-content__headline">
                         {data.requirement_description}
                     </h1>
                     <div>
