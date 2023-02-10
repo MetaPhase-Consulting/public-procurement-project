@@ -40,7 +40,7 @@ const Forecast: NextPage = () => {
         return (
             <Layout title="Opportunity Detail">
                 <SubNavigation selected='Browse Opportunities' addMargin />
-                <div className="row ForecastDetail">
+                <div className="row ForecastDetail mb-24">
                     <div className="max-w-5xl">
                         <BreadcrumbBar className="py-2">
                             <Breadcrumb>

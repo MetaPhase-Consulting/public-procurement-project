@@ -135,7 +135,7 @@ const ForecastList: NextPage = () => {
     return (
         <Layout>
             <SubNavigation selected='Browse Opportunities' addMargin/>
-            <div className="row">
+            <div className="row mb-24">
                 <BreadcrumbBar className="py-2">
                     <Breadcrumb>
                         <BreadcrumbLink href="/">Home</BreadcrumbLink>
