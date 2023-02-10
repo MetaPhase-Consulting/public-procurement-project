@@ -1,5 +1,8 @@
 .LabelDataWrapper {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .Label {
@@ -8,7 +11,7 @@
     text-transform: uppercase;
     margin-right: 15px;
     min-width: 170px;
-    margin-bottom: 7px;
+    /*margin-bottom: 7px;*/
 }
 
 .Value {
@@ -24,4 +27,13 @@
 .Inline .Label {
     text-align: right;
     margin-bottom: 0;
+}
+
+.NoMargin {
+    margin-bottom: 0 !important;
+}
+
+.Reverse {
+    flex-direction: column-reverse;
+    gap: 10px;
 }

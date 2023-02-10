@@ -9,6 +9,7 @@ import RequirementTag from '../../components/ForecastList/Card/RequirementTag/Re
 import { convertNumber, convertDuration, convertQuarter, convertDate } from '../../utils/utils';
 import LabelValue from '../../components/ForecastList/Card/LabelValue/LabelValue';
 import SubNavigation from '../../components/Layout/SubNavigation';
+import InfoBox from '../../components/ForecastList/Card/InfoBox/InfoBox';
 
 // TODO: Don't let Next use the name of this file as a part of the route, dynamically pull the slug of the forecast object
 const Forecast: NextPage = () => {
@@ -73,7 +74,7 @@ const Forecast: NextPage = () => {
                             <div className="Description max-w-2xl">
                                 {data.long_description ?? longText}
                             </div>
-                            <div className="GlanceColumn">
+                            <div className="GlanceColumn mb-5 w-full">
                                 <LabelValue label="Estimated Value" value={data.estimated_value ?? ''} />
                                 <LabelValue label="Place of Performance" value={data.place_of_performance ?? ''} />
                                 <LabelValue label="Office Symbol" value={data.office_symbol ?? ''} />
@@ -83,8 +84,18 @@ const Forecast: NextPage = () => {
                                 <LabelValue label="NAICS Codes" value={data.naics_code ?? ''} />
                             </div>
                         </div>
-                        <div>
-
+                        <div className="max-w-screen-md flex space-x-10">
+                          <div className="flex-grow">
+                            <InfoBox label="Contact Information">
+                              <LabelValue label="Point of contact name" value={data.poc_name ?? ''} reverse />
+                              <LabelValue label="Point of contact email" value={data.poc_email ?? ''} nomargin reverse />
+                            </InfoBox>
+                          </div>
+                          <div className="flex-grow">
+                            <InfoBox label="Contract Information">
+                              <LabelValue label="Incumbent Contractor" value={data.incumbent_contractor ?? ''} nomargin reverse />
+                            </InfoBox>
+                          </div>
                         </div>
                     </div>
                   </div>
