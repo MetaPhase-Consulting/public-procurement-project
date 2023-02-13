@@ -15,12 +15,13 @@
 
 }
 
-.recompete {
+.Recompete {
     background-color: white;
     color: black;
     border: 1px solid black;
 }
 
 .RequirementTagInner {
-
+    line-height: 1;
+    padding-bottom: 2px;
 }

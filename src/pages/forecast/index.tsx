@@ -1,8 +1,8 @@
 import React from 'react';
 import { type NextPage } from 'next';
 import {
-    Breadcrumb, BreadcrumbBar, BreadcrumbLink, CardGroup, Grid, GridContainer,
-    Pagination, Search
+    Breadcrumb, BreadcrumbBar, BreadcrumbLink, CardGroup,
+    Grid, GridContainer, Pagination
 } from '@trussworks/react-uswds';
 
 import { api } from '../../utils/api';
@@ -32,9 +32,9 @@ const ForecastList: NextPage = () => {
     const [page, setPage] = React.useState(1);
     const [searchQuery, setSearchQuery] = React.useState('');
     const [filters, setFilters] = React.useState<FilterState>({
-        new_requirement: ['New'],
-        estimated_value: ['$250k-500K'],
-        past_set_aside: ['N/A'],
+        new_requirement: [],
+        estimated_value: [],
+        past_set_aside: [],
     })
 
 
@@ -126,7 +126,7 @@ const ForecastList: NextPage = () => {
     const input = {
         search: searchQuery,
         filter: convert(filters),
-        sort: { created: 'asc' },
+        sort: { number: 'asc' },
         page: page
     }
     const total = api.forecast.getTotalResults.useQuery(input).data;
@@ -134,9 +134,9 @@ const ForecastList: NextPage = () => {
 
     return (
         <Layout>
-            <SubNavigation selected='Browse Opportunities' addMargin/>
+            <SubNavigation selected='Browse Opportunities' addMargin />
             <div className="row mb-24">
-                <BreadcrumbBar className="py-2">
+                <BreadcrumbBar className="py-2 text-sm">
                     <Breadcrumb>
                         <BreadcrumbLink href="/">Home</BreadcrumbLink>
                     </Breadcrumb>
@@ -157,13 +157,13 @@ const ForecastList: NextPage = () => {
                             </div>
                         </Grid>
                         <Grid tablet={{ col: 6 }} desktop={{ col: 9 }}>
-                            <div className="flex justify-end">
+                            {/* <div className="flex justify-end">
                                 <Search
                                     size="small"
                                     placeholder="Search..."
                                     onSubmit={(event) => { setSearchQuery(event.toString()) }}
                                 />
-                            </div>
+                            </div> */}
                             <div className="py-3 border-b border-gray-400 mb-8">
                                 <span className='font-semibold'>{total}</span>
                                 <span> Results</span>

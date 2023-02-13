@@ -43,7 +43,7 @@ const ListingCard: React.FC<Props> = (props) => {
                         </div>
                         <div className={classes.BottomGridWrapper}>
                             <LabelValue inline label="Past Set-Aside" value={data.past_set_aside ?? ''} />
-                            <LabelValue inline label="Contract Vehicle" value={data.contract_vehicle ?? ''} />
+                            <LabelValue inline label="Contract Vehicle" value={data.contract_vehicle ?? 'N/A'} />
                             <LabelValue inline label="NAICS Codes" value={data.naics_code ?? ''} />
                         </div>
                     </div>

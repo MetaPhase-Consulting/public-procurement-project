@@ -14,7 +14,7 @@ import GlanceId from '../../components/ForecastList/Card/GlanceId/GlanceId';
 import RequirementTag from '../../components/ForecastList/Card/RequirementTag/RequirementTag';
 import LabelValue from '../../components/ForecastList/Card/LabelValue/LabelValue';
 import SubNavigation from '../../components/Layout/SubNavigation';
-import NotFound from '../../components/Layout/NotFound';
+// import NotFound from '../../components/Layout/NotFound';
 import InfoBox from '../../components/ForecastList/Card/InfoBox/InfoBox';
 
 const Forecast: NextPage = () => {
@@ -111,7 +111,7 @@ const Forecast: NextPage = () => {
     } else {
         return (
             <Layout title="Forecast Opportunity Name">
-                <NotFound />
+                {/* <NotFound /> */}
             </Layout>
         );
     }
