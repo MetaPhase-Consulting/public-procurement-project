@@ -1,6 +1,8 @@
 import { type NextPage } from 'next';
 import Layout from '../components/Layout/Layout';
 import { api } from '../utils/api';
+import SubNavigation from "../components/Layout/SubNavigation";
+import React from "react";
 
 /**
  * **Home**
@@ -18,6 +20,7 @@ const Home: NextPage = () => {
 
     return (
         <Layout>
+            <SubNavigation selected='Forecast Home' addMargin/>
             <div className='container flex flex-col items-center justify-center gap-12 px-4 py-16'>
                 <h1 className='text-7xl font-extrabold text-purple-900'>
                     Public Procurement Project

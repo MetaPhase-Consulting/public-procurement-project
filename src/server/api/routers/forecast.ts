@@ -83,6 +83,15 @@ export const forecastRouter = createTRPCRouter({
                 },
             });
         }),
+    getByNumber: publicProcedure
+        .input(z.object({number: z.string()}))
+        .query(({ input, ctx }) => {
+            return  ctx.prisma.forecast.findUnique({
+                where: {
+                    number: input.number
+                },
+            });
+        }),
     getAll: publicProcedure
         .query(({ ctx }) => {
             return  ctx.prisma.forecast.findMany();

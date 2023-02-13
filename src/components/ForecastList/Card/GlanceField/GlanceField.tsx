@@ -7,13 +7,14 @@ interface Props {
     data: string | number;
     dataWide?: boolean;
     inline?: boolean;
+    noMargin?: boolean;
 }
 
 const GlanceField: React.FC<Props> = (props) => {
     return (
         <div className={classes.GlanceField}>
             <div className={classes.GlanceFieldInner}>
-                <div className={classes.GlanceWrapper}>
+                <div className={[classes.GlanceWrapper, props.noMargin ? classes.NoMargin : ''].join(' ')}>
                     <div className={[classes.GlanceLabel, props.labelWide ? classes.Wide : ''].join(' ')}>
                         {props.label}
                     </div>
