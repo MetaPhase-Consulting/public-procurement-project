@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const Banner: React.FC = () => {
     return (
-        <div data-testid="homepage-banner" />
+        <div data-testid='homepage-banner' />
     );
 }
 
