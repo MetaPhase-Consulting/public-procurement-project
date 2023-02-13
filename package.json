@@ -11,6 +11,10 @@
     "test": "jest --coverage"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-regular-svg-icons": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@prisma/client": "^4.8.0",
     "@tanstack/react-query": "^4.20.0",
     "@trpc/client": "^10.7.0",
@@ -33,7 +37,7 @@
     "@types/node": "^18.11.18",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.10", 
+    "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.47.1",
     "@typescript-eslint/parser": "^5.47.1",
     "autoprefixer": "^10.4.7",
