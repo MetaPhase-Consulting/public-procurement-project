@@ -1,0 +1,118 @@
+.HomeHeader {
+    background-color: #0F304C;
+    height: 200px;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 50px;
+}
+
+.BrowseCTA {
+    height: 250px;
+    display: flex;
+    background-color: #ECECEC;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.BrowseCTACircle {
+    height: 100px;
+    width: 100px;
+    background-color: #D9D9D9;
+    border-radius: 500px;
+}
+
+.Star {
+    padding: 0px 4px;
+    color: #C1A783;
+    height: 12px;
+    width: 12px;
+}
+
+.AnnouncementHeading {
+    font-size: 1.6rem;
+    padding: 5px 0px 15px;
+}
+
+.AnnouncementSection {
+    padding-top: 20px;
+}
+
+.AnnouncementItem {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+}
+
+.AnnouncementDate {
+    font-size: 0.9rem;
+    color: #838181;
+}
+
+.AnnouncementTitle {
+    font-size: 1.25rem;
+    color: #49729F;
+}
+
+.FeaturedHeading {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    padding: 10px 0px 15px;
+}
+
+.FeaturedDivider {
+    width: 100px;
+    border: 1px solid #C1A783;
+}
+
+.FeaturedSection {
+    padding-top: 20px;
+}
+
+.FeaturedItem {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+    border: 1px #7C8791 solid;
+    margin: 20px 0px;
+}
+
+.FeaturedDate {
+    font-size: 0.9rem;
+    color: #838181;
+}
+
+.FeaturedTitle {
+    font-size: 1.25rem;
+    color: #49729F;
+}
+
+.HighlightTitle {
+    font-size: 1.6rem;
+    max-width: 400px;
+    padding-bottom: 20px;
+}
+
+.HighlightMessage {
+    padding-right: 20px;
+}
+
+.HighlightPhoto {
+    height: 80px;
+    width: 80px;
+    background-color: #D9D9D9;
+    border-radius: 500px;
+    margin-right: 20px;
+}
+
+.HighlightRole {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: #838181;
+}
+
+.HighlightAuthor {
+    font-size: 1.4rem;
+
+}
