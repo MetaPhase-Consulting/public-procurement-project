@@ -9,6 +9,7 @@ import { api } from '../../utils/api';
 import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/ForecastList/Filters/Filters';
 import ListingCard from '../../components/ForecastList/Card/ListingCard/ListingCard';
+import SubNavigation from '../../components/Layout/SubNavigation';
 
 type FilterState = {
     new_requirement: string[],
@@ -133,17 +134,18 @@ const ForecastList: NextPage = () => {
 
     return (
         <Layout>
-            <div className="container m-auto px-3 py-6">
+            <SubNavigation selected='Browse Opportunities' addMargin />
+            <div className="row mb-24">
                 <BreadcrumbBar className="py-2 text-sm">
                     <Breadcrumb>
                         <BreadcrumbLink href="/">Home</BreadcrumbLink>
                     </Breadcrumb>
                     <Breadcrumb>Browse Opportunities</Breadcrumb>
                 </BreadcrumbBar>
-                <h1 className="sm:text-[2rem] pb-8">
+                <h1 className="featured-content__headline mb-10">
                     Browse Forecast Opportunities
                 </h1>
-                <GridContainer className="max-w-none p-1">
+                <GridContainer className="max-w-none p-1 w-full">
                     <Grid row gap="lg">
                         <Grid tablet={{ col: 6 }} desktop={{ col: 3 }}>
                             <div className='pr-8'>

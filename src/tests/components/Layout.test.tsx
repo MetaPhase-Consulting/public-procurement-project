@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import Layout from "../../components/Layout/Layout";
+import { render, screen } from '@testing-library/react';
+import Layout from '../../components/Layout/Layout';
 
 
 describe('Layout Component', () => {
@@ -9,7 +9,7 @@ describe('Layout Component', () => {
                 <p>Content</p>
             </Layout>
         );
-        expect(screen.getByTestId("header")).toBeInTheDocument();
-        expect(screen.getByTestId("footer")).toBeInTheDocument();
+        expect(screen.getByTestId('header')).toBeInTheDocument();
+        expect(screen.getByTestId('footer')).toBeInTheDocument();
     });
 })

@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 import Layout from '../components/Layout/Layout';
-// import SubNavigation from '../components/Layout/SubNavigation';
 import classes from '../components/Homepage/Homepage.module.css';
 
 /**

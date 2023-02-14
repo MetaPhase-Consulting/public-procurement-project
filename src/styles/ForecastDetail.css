@@ -1,0 +1,18 @@
+.ForecastDetail .RecordUpdated {
+    font-size: 15px;
+    font-style: italic;
+}
+
+.ForecastDetail .Description {
+line-height: 1.5;
+}
+
+.ForecastDetail .GlanceColumn {
+
+}
+
+.ForecastDetail .BackToResults {
+    font-size: 12px;
+    text-decoration: underline;
+    color: #0a314d;
+}

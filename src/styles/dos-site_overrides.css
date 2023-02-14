@@ -1,0 +1,60 @@
+.nav__utility-content,
+.nav__wrapper
+{
+    max-width: 1620px;
+}
+
+.frame,.row, .usa-banner__inner {
+    max-width: 1600px;
+}
+
+.footer__content {
+    max-width: 1260px;
+}
+
+.featured-content__headline {
+    font-family: Open Sans,Arial,Sans-Serif;
+    font-size: 36px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    letter-spacing: -.75px;
+    line-height: 1.1666666667;
+    transition: color .2s ease;
+    font-family: EB Garamond,Times,Serif;
+    color: #161f35;
+    position: relative;
+}
+
+.featured-content__headline {
+    font-size: 42px;
+    line-height: 1.1153846154;
+    max-width: 900px;
+}
+
+.ppp-chevron-left {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 22px;
+    height: 15px;
+    border: 2px solid transparent;
+    border-radius: 100px;
+    display: inline-block;
+}
+
+.ppp-chevron-left::after {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid;
+    border-left: 2px solid;
+    transform: rotate(45deg);
+    left: 6px;
+    top: 4px;
+    border-color: gray;
+}
