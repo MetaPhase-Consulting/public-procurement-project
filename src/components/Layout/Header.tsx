@@ -3,7 +3,7 @@ import * as React from 'react';
 import classes from './Header.module.css';
 
 interface Props {
-    light?: boolean;
+  dark?: boolean;
 }
 
 const Header: React.FC<Props> = props => {
@@ -11,8 +11,7 @@ const Header: React.FC<Props> = props => {
     // TODO: Nav Items
 
   const dosHeaderLogo={
-    backgroundImage:
-      "url('https://www.state.gov/wp-content/themes/state/images/logos/Logo_Navy_XL.png')",
+    backgroundImage: props.dark ? "url('https://www.state.gov/wp-content/themes/state/images/logos/Logo_White_XL.png')" : "url('https://www.state.gov/wp-content/themes/state/images/logos/Logo_Navy_XL.png')",
     backgroundPosition: 'center',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
@@ -20,7 +19,7 @@ const Header: React.FC<Props> = props => {
 
     return (
         <>
-          <header id="masthead" className="site-header nav__main-header">
+          <header id="masthead" className={["site-header nav__main-header", props.dark ? "dark" : ""].join(" ")}>
             <div className="nav__utility-wrapper">
               <div className="nav__utility-content">
                 <nav className="site-nav site-nav--utility nav__wrapper nav__utility">
@@ -74,7 +73,7 @@ const Header: React.FC<Props> = props => {
                 </div>
               </div>
             </div>
-            <div className="nav__wrapper nav__second-nav">
+            <div className={["nav__wrapper nav__second-nav", props.dark ? "dark" : ""].join(" ")}>
               <nav className="site-nav site-nav--primary nav__nav">
                 <ul id="nav__primary-nav" className="nav__primary-nav is-fixed">
                   <li className="nav__large-logo-wrapper menu-item menu-item-type-post_type menu-item-object-page menu-item-home">
@@ -98,6 +97,11 @@ const Header: React.FC<Props> = props => {
                   </li>
                 </ul>
               </nav>
+              <ul className="nav__header-buttons">
+                <li>
+                  <a href="https://findit.state.gov/search?&affiliate=dos_stategov" className="nav__search-trigger" type="button" role="button" name="search"></a>
+                </li>
+              </ul>
             </div>
           </header>
 

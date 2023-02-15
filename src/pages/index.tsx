@@ -2,12 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import { type NextPage } from 'next';
 
-import { GridContainer, Grid, Breadcrumb, BreadcrumbBar, BreadcrumbLink } from '@trussworks/react-uswds';
+import { GridContainer, Grid } from '@trussworks/react-uswds';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 import Layout from '../components/Layout/Layout';
+import PageHeader from '../components/PageHeader/PageHeader';
 import classes from '../components/Homepage/Homepage.module.css';
+import SubNavigation from "../components/Layout/SubNavigation";
 
 /**
  * **Home**
@@ -51,21 +53,13 @@ const Home: NextPage = () => {
     )
 
     return (
-        <Layout>
-            {/* <SubNavigation selected='Forecast Home' /> */}
-            <div className={classes.HomeHeader}>
-                <div className='container m-auto flex flex-col'>
-                    <BreadcrumbBar className="pt-0 pb-4 bg-transparent text-white text-sm">
-                        <Breadcrumb>
-                            <BreadcrumbLink href="/" className='text-white'>Home</BreadcrumbLink>
-                        </Breadcrumb>
-                        <Breadcrumb>Forecast Tool Home</Breadcrumb>
-                    </BreadcrumbBar>
-                    <h1 className='text-4xl'>
-                        Procurement Forecast Tool
-                    </h1>
-                </div>
-            </div>
+      <Layout title="Forecast Tool Home" darkHeader>
+          {/*<SubNavigation selected='Forecast Home' />*/}
+          <PageHeader heroType="blue" title="Procurement Forecast" meta="Office of Small and Disadvantaged Business Utilization" breadcrumbs={[{label: 'Home', link: 'https://www.state.gov'}, {label: 'Key Topics – Office of Small and Disadvantaged Business Utilization', link: 'https://www.state.gov/key-topics-office-of-small-and-disadvantaged-business-utilization'}, {label: 'Procurement Forecast'}]}/>
+
+
+
+
             <div className='container m-auto flex flex-col items-center justify-center gap-12 px-4 py-16'>
                 <GridContainer className="max-w-none p-1">
                     <Grid row gap="lg">

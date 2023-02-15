@@ -10,6 +10,7 @@ import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/ForecastList/Filters/Filters';
 import ListingCard from '../../components/ForecastList/Card/ListingCard/ListingCard';
 import SubNavigation from '../../components/Layout/SubNavigation';
+import PageHeader from "../../components/PageHeader/PageHeader";
 
 type FilterState = {
     new_requirement: string[],
@@ -135,16 +136,8 @@ const ForecastList: NextPage = () => {
     return (
         <Layout>
             <SubNavigation selected='Browse Opportunities' addMargin />
+            <PageHeader title="Browse Forecast Opportunities" breadcrumbs={[{label: 'Home', link: '/'}, {label: 'Browse Opportunities'}]}/>
             <div className="row mb-24">
-                <BreadcrumbBar className="py-2 text-sm">
-                    <Breadcrumb>
-                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                    </Breadcrumb>
-                    <Breadcrumb>Browse Opportunities</Breadcrumb>
-                </BreadcrumbBar>
-                <h1 className="featured-content__headline mb-10">
-                    Browse Forecast Opportunities
-                </h1>
                 <GridContainer className="max-w-none p-1 w-full">
                     <Grid row gap="lg">
                         <Grid tablet={{ col: 6 }} desktop={{ col: 3 }}>

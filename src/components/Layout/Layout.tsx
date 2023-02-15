@@ -8,6 +8,7 @@ import Header from './Header';
 interface Props {
     children: React.ReactNode;
     title?: string;
+    darkHeader?: boolean;
 }
 
 /**
@@ -28,7 +29,7 @@ const Layout: React.FC<Props> = props => {
             </Head>
             <main>
                 <GovBanner />
-                <Header />
+                <Header dark={props.darkHeader}/>
                 <div style={{ minHeight: 'calc(100vh - 500px)', height: '100%' }} className="w-full">
                     {children}
                 </div>

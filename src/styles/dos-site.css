@@ -254,6 +254,15 @@ body {
     text-align: left
 }
 
+.nav__primary-nav>li>a:hover, .nav__primary-nav>li>a:active, .nav__primary-nav>li>a:focus {
+    opacity: .6;
+    transition: opacity .2s ease;
+}
+
+.nav__search-trigger:hover:before, .nav__search-trigger:hover:after {
+    opacity: .4;
+}
+
 .nav__primary-nav>.has-children>a:after,.nav__primary-nav>.has-children>a:before {
     content: "";
     height: 1px;
@@ -276,16 +285,106 @@ body {
 }
 
 .nav__header-buttons {
-    display: flex;
-    justify-content: space-between;
-    position: absolute;
-    top: 0;
     height: 80px;
     padding: 0;
     right: 10px;
     width: 40px;
-    z-index: 0
+    z-index: 0;
+    display: flex;
+    /* height: 62px; */
+    justify-content: space-between;
+    /* padding: 0 12px; */
+    position: absolute;
+    top: 0;
+    /* width: 100%; */
 }
+
+.nav__header-buttons li {
+    align-items: center;
+    display: inline-flex;
+}
+
+.nav__wrapper .nav__search-trigger {
+    right: 26px;
+    position: absolute;
+    top: 18px;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    position: relative;
+    color: transparent;
+    display: block;
+    height: 44px;
+    overflow: hidden;
+    /* position: relative; */
+    white-space: nowrap;
+    width: 44px;
+    z-index: 3;
+}
+
+.nav__search-trigger:before {
+    border: 2px solid #fff;
+    border-radius: 50%;
+    height: 8px;
+    left: 13px;
+    top: 13px;
+    width: 8px;
+}
+
+.nav__search-trigger:before, .nav__search-trigger:after {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    content: "";
+    position: absolute;
+    transform: translateZ(0);
+    transition: opacity .2s ease;
+}
+
+.nav__search-trigger:after {
+    background: #fff;
+    bottom: 17px;
+    height: 2px;
+    right: 14px;
+    transform: rotate(45deg);
+    width: 8px;
+}
+
+.nav__search-trigger span {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.nav__search-trigger span:before, .nav__search-trigger span:after {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background: #fff;
+    content: "";
+    display: inline-block;
+    height: 2px;
+    left: 50%;
+    margin-left: -11px;
+    margin-top: -2px;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateZ(0);
+    transition: opacity .2s ease,transform .2s ease,color .2s ease;
+    width: 20px;
+}
+
+.nav__search-trigger:before {
+    border-color: #0a314d;
+    box-sizing: content-box;
+}
+
+.nav__search-trigger:after {
+    background: #0a314d;
+    box-sizing: content-box;
+}
+
 
 .page-subnavigation {
     background: #fff;
@@ -530,4 +629,89 @@ display: flex;
     line-height: 1;
     letter-spacing: 0;
     color: #fff;
+}
+
+.stars-above:before {
+    background: url(https://www.state.gov/wp-content/themes/state/images/star.svg) 0 0 repeat;
+    content: "";
+    display: block;
+    font-size: 12px;
+    height: 18px;
+    left: 0;
+    line-height: 1;
+    max-width: 53px;
+    position: absolute;
+    top: 0;
+    width: 53px;
+}
+
+.stars-above {
+    padding-top: 22px;
+    position: relative;
+}
+
+.featured-content__copy {
+    position: relative;
+}
+
+.page-header .article-meta {
+    margin-bottom: 22px;
+}
+
+.page-header__actions {
+    align-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.bureau-header {
+    min-height: 370px;
+    padding-bottom: 100px;
+    padding-top: 42px;
+    position: relative;
+}
+
+.bureau-header {
+    background: url(https://www.state.gov/wp-content/themes/state/images/wavy-bg.jpg) repeat;
+}
+
+.bureau-header__image {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    min-height: 150px;
+    overflow: hidden;
+}
+
+.bureau-header__image figure {
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.bureau-header__image:after {
+    background: rgba(0,0,0,.5);
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.bureau-header .row {
+    position: absolute;
+    bottom: auto;
+    left: 50%;
+    right: auto;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }

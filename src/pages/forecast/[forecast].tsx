@@ -14,8 +14,9 @@ import GlanceId from '../../components/ForecastList/Card/GlanceId/GlanceId';
 import RequirementTag from '../../components/ForecastList/Card/RequirementTag/RequirementTag';
 import LabelValue from '../../components/ForecastList/Card/LabelValue/LabelValue';
 import SubNavigation from '../../components/Layout/SubNavigation';
-// import NotFound from '../../components/Layout/NotFound';
+import NotFound from '../../components/Layout/NotFound';
 import InfoBox from '../../components/ForecastList/Card/InfoBox/InfoBox';
+import PageHeader from "../../components/PageHeader/PageHeader";
 
 const Forecast: NextPage = () => {
 
@@ -40,26 +41,18 @@ const Forecast: NextPage = () => {
         return (
             <Layout title="Opportunity Detail">
                 <SubNavigation selected='Browse Opportunities' addMargin />
+                <PageHeader title={data.requirement_description} breadcrumbs={[{label: 'Home', link: '/'}, {label: 'Browse Opportunities', link: "/forecast"}, {label: data.number}]}>
+                    <div className="margin-bottom-5">
+                        <i className="ppp-chevron-left" />
+                        <Link className="BackToResults pb-15" href="/forecast">
+                            Back to Search Results
+                        </Link>
+                    </div>
+                </PageHeader>
+
                 <div className="row ForecastDetail mb-24">
                     <div className="max-w-5xl">
-                        <BreadcrumbBar className="py-2">
-                            <Breadcrumb>
-                                <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                            </Breadcrumb>
-                            <Breadcrumb>
-                                <BreadcrumbLink href="/forecast">Browse Opportunities</BreadcrumbLink>
-                            </Breadcrumb>
-                            <Breadcrumb>{data.number}</Breadcrumb>
-                        </BreadcrumbBar>
-                        <h1 className="featured-content__headline mb-5">
-                            {data.requirement_description}
-                        </h1>
-                        <div className="margin-bottom-5">
-                            <i className="ppp-chevron-left" />
-                            <Link className="BackToResults pb-15" href="/forecast">
-                                Back to Search Results
-                            </Link>
-                        </div>
+
                         <div>
                             <div className='flex flex-row items-center gap-10 mb-5'>
                                 <GlanceId value={convertNumber(data.number)}>
@@ -111,7 +104,7 @@ const Forecast: NextPage = () => {
     } else {
         return (
             <Layout title="Forecast Opportunity Name">
-                {/* <NotFound /> */}
+                 <NotFound />
             </Layout>
         );
     }

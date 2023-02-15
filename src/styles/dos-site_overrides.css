@@ -58,3 +58,88 @@
     top: 4px;
     border-color: gray;
 }
+
+.nav__header-buttons {
+    align-items: flex-start;
+}
+
+header.dark {
+    background: #0a314d;
+}
+
+.page-header.hero-type__blue *,
+.bureau-header.hero-type__image * {
+    color: white !important;
+}
+
+.nav__wrapper.dark .nav__primary-nav>li>a {
+    color: white;
+}
+
+.nav__primary-nav>li.nav__large-logo-wrapper>a:hover, .nav__primary-nav>li.nav__large-logo-wrapper>a:active, .nav__primary-nav>li.nav__large-logo-wrapper>a:focus {
+    opacity: 1;
+    transition: opacity .2s ease;
+}
+
+.page-header.hero-type__blue {
+    background: url(https://www.state.gov/wp-content/themes/state/images/wavy-navy.jpg) 0 0 repeat #0a314d;
+    margin-bottom: 0;
+    overflow: visible;
+}
+
+.page-header.hero-type__blue .featured-content__copy {
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 21;
+    grid-column: 2/span 11;
+    padding: 0;
+}
+
+.page-header.hero-type__blue .featured-content__copy:before {
+    height: 100%;
+    top: 0;
+    left: -30px;
+    border-left: 1px solid #c1a783;
+    bottom: 0;
+    content: "";
+    display: block;
+    /* height: 100%; */
+    /* left: 0; */
+    position: absolute;
+    /* top: 0; */
+    transition: height 1s ease-in-out;
+    z-index: 2;
+}
+
+.page-header.hero-type__blue .usa-breadcrumb {
+    padding: 10px 0 30px;
+}
+
+.hero-type__blue {
+    padding-bottom: 0;
+    padding-top: 10px;
+}
+
+.page-header.hero-type__blue .featured-content__headline,
+.bureau-header.hero-type__image .featured-content__headline {
+    font-size: 52px;
+    line-height: 1.1153846154;
+    margin-bottom: 24px;
+}
+
+.page-header.hero-type__blue .article-meta {
+    font-size: 14px;
+    font-weight: 200;
+    letter-spacing: .233em;
+    text-transform: uppercase;
+}
+
+.bureau-header__image {
+    background-color: black;
+    background-image: url(https://www.state.gov/wp-content/uploads/2021/01/shutterstock_1418205038-scaled.jpg);
+    background-size: cover;
+    background-position: -50%;
+}
+
+.bureau-header {
+    min-height: 260px;
+}
