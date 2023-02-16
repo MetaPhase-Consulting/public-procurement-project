@@ -14,6 +14,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 10px 40px;
 }
 
 .BrowseCTACircle {
@@ -30,35 +31,55 @@
     width: 12px;
 }
 
-.AnnouncementHeading {
-    font-size: 1.6rem;
-    padding: 5px 0px 15px;
+.IntroMessage {
+    line-height: 1.25rem;
 }
 
-.AnnouncementSection {
-    padding-top: 20px;
+.AnnouncementHeading {
+    font-size: 2.75rem;
+    padding: 5px 0px 15px;
+    font-family: EB Garamond, Times, Serif;
+}
+
+.AnnouncementContent {
+    /* padding-top: 20px; */
 }
 
 .AnnouncementItem {
     display: flex;
     flex-direction: column;
-    margin: 20px 0px;
+    margin: 50px 0px;
 }
 
 .AnnouncementDate {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #838181;
+    padding-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
 }
 
 .AnnouncementTitle {
-    font-size: 1.25rem;
+    font-size: 1.7rem;
+    line-height: 1.75rem;
+    font-weight: 600;
     color: #49729F;
+    font-family: EB Garamond, Times, Serif;
+}
+
+.FeaturedSection {
+    padding: 40px 50px;
+    background: url(https://www.state.gov/wp-content/themes/state/images/wavy-bg.jpg) repeat;
 }
 
 .FeaturedHeading {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     text-transform: uppercase;
     padding: 10px 0px 15px;
+    font-family: EB Garamond, Times, Serif;
+    letter-spacing: 0.225em;
+    font-weight: 500;
 }
 
 .FeaturedDivider {
@@ -66,26 +87,35 @@
     border: 1px solid #C1A783;
 }
 
-.FeaturedSection {
+.FeaturedContent {
     padding-top: 20px;
 }
 
 .FeaturedItem {
     display: flex;
     flex-direction: column;
-    padding: 15px 20px;
+    padding: 30px;
     border: 1px #7C8791 solid;
     margin: 20px 0px;
+    background-color: white;
+    cursor: pointer;
 }
 
 .FeaturedDate {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #838181;
+    padding-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
 }
 
 .FeaturedTitle {
-    font-size: 1.25rem;
+    font-size: 1.7rem;
+    line-height: 1.75rem;
+    font-weight: 600;
     color: #49729F;
+    font-family: EB Garamond, Times, Serif;
 }
 
 .HighlightTitle {
@@ -96,6 +126,7 @@
 
 .HighlightMessage {
     padding-right: 20px;
+    line-height: 1.25rem;
 }
 
 .HighlightPhoto {
@@ -108,11 +139,14 @@
 
 .HighlightRole {
     text-transform: uppercase;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 500;
     color: #838181;
+    letter-spacing: 0.125rem;
+    padding-bottom: 0.5rem;
 }
 
 .HighlightAuthor {
-    font-size: 1.4rem;
-
+    font-size: 1.7rem;
+    font-family: EB Garamond, Times, Serif;
 }
