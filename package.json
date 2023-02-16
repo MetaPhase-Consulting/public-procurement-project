@@ -11,10 +11,6 @@
     "test": "jest --coverage"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.3.0",
-    "@fortawesome/free-regular-svg-icons": "^6.3.0",
-    "@fortawesome/free-solid-svg-icons": "^6.3.0",
-    "@fortawesome/react-fontawesome": "^0.2.0",
     "@prisma/client": "^4.8.0",
     "@tanstack/react-query": "^4.20.0",
     "@trpc/client": "^10.7.0",
