@@ -2,9 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { type NextPage } from 'next';
 
-import { GridContainer, Grid } from '@trussworks/react-uswds';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { GridContainer, Grid, Icon } from '@trussworks/react-uswds';
 
 import { api } from '../utils/api';
 import { convertDate, convertNumber } from '../utils/utils';
@@ -49,9 +47,9 @@ const Home: NextPage = () => {
 
     const starAdornment = (
         <div className='flex flex-row -mx-1'>
-            <FontAwesomeIcon icon={faStar} className={classes.Star} />
-            <FontAwesomeIcon icon={faStar} className={classes.Star} />
-            <FontAwesomeIcon icon={faStar} className={classes.Star} />
+            <Icon.Star className={classes.Star} />
+            <Icon.Star className={classes.Star} />
+            <Icon.Star className={classes.Star} />
         </div>
     )
 
@@ -152,10 +150,10 @@ const Home: NextPage = () => {
                             <div className={classes.HighlightPhoto} />
                             <div className='flex flex-col'>
                                 <span className={classes.HighlightRole}>
-                                    Assistant Job Title
+                                    Deputy Assistant Secretary for Acquisition & Senior Procurement Executive at U.S. Department of State
                                 </span>
                                 <span className={classes.HighlightAuthor}>
-                                    John Smith
+                                    Mike Derrios
                                 </span>
                             </div>
                         </Grid>
