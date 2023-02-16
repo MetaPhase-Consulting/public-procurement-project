@@ -36,6 +36,11 @@ export const estimatedValue: FilterSection[] = [{
     value: '$5M-$10M',
     label: '>$5M and <$10M',
 }, {
+    id: 'est-val-4',
+    field: 'estimated_value',
+    value: '$10M-$20M',
+    label: '>$10M and <$20M',
+}, {
     id: 'est-val-5',
     field: 'estimated_value',
     value: '$20M-$50M',
@@ -84,13 +89,16 @@ export const pastSetAside: FilterSection[] = [{
 }, {
     id: 'past-set-aside-sdvosb',
     field: 'past_set_aside',
-    value: 'SDVOSB'
+    value: 'Service Disabled Veteran Owned Small Business (SDVOSB)',
+    label: 'SDVOSB'
 }, {
     id: 'past-set-aside-vosb',
     field: 'past_set_aside',
-    value: 'VOSB'
+    value: 'VOSB',
+    label: 'VOSB'
 }, {
     id: 'past-set-aside-wosb',
     field: 'past_set_aside',
-    value: 'WOSB'
+    value: 'Women-Owned Small Business (WOSB)',
+    label: 'WOSB'
 }]
