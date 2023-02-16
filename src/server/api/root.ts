@@ -1,5 +1,6 @@
 import { createTRPCRouter } from './trpc';
 import { forecastRouter } from './routers/forecast';
+import { homepageRouter } from './routers/homepage';
 
 /**
  * This is the primary router for your server.
@@ -7,6 +8,7 @@ import { forecastRouter } from './routers/forecast';
  * All routers added in /api/routers should be manually added here
  */
 export const appRouter = createTRPCRouter({
+    homepage: homepageRouter,
     forecast: forecastRouter,
 });
 
