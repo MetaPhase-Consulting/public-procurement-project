@@ -170,7 +170,7 @@ SN = Service Now
 ### Highlight Message
 
 | Name | SN Ref | Type | Constraints | Description |
-|---|---|---|---|
+|---|---|---|---|---|
 | id | sys_id | `String` | `PRIMARY_KEY` |  |
 | number | number | `String` |  | Unique | Government provided identifier for each listing. |
 | synced |  | `DateTime` | Default = NOW | Timestamp of when object was synced or updated with ServiceNow data. |
