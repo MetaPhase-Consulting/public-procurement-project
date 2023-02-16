@@ -6,10 +6,13 @@ import { GridContainer, Grid } from '@trussworks/react-uswds';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 
+import { api } from '../utils/api';
+import { convertDate, convertNumber } from '../utils/utils';
+
 import Layout from '../components/Layout/Layout';
 import PageHeader from '../components/PageHeader/PageHeader';
+import SubNavigation from '../components/Layout/SubNavigation';
 import classes from '../components/Homepage/Homepage.module.css';
-import SubNavigation from "../components/Layout/SubNavigation";
 
 /**
  * **Home**
@@ -52,57 +55,40 @@ const Home: NextPage = () => {
         </div>
     )
 
+    const { data } = api.homepage.featuredOpportunities.useQuery();
+
     return (
-      <Layout title="Forecast Tool Home" darkHeader>
-          {/*<SubNavigation selected='Forecast Home' />*/}
-          <PageHeader heroType="blue" title="Procurement Forecast" meta="Office of Small and Disadvantaged Business Utilization" breadcrumbs={[{label: 'Home', link: 'https://www.state.gov'}, {label: 'Key Topics – Office of Small and Disadvantaged Business Utilization', link: 'https://www.state.gov/key-topics-office-of-small-and-disadvantaged-business-utilization'}, {label: 'Procurement Forecast'}]}/>
-
-
-
-
-            <div className='container m-auto flex flex-col items-center justify-center gap-12 px-4 py-16'>
+        <Layout title="Forecast Tool Home" darkHeader>
+            <SubNavigation selected='Forecast Home' />
+            <PageHeader
+                heroType="blue"
+                title="Procurement Forecast"
+                meta="Office of Small and Disadvantaged Business Utilization"
+                breadcrumbs={[
+                    { label: 'Home', link: 'https://www.state.gov' },
+                    { label: 'Key Topics – Office of Small and Disadvantaged Business Utilization', link: 'https://www.state.gov/key-topics-office-of-small-and-disadvantaged-business-utilization' },
+                    { label: 'Procurement Forecast' }
+                ]}
+            />
+            <div className="row mb-24 mt-24">
                 <GridContainer className="max-w-none p-1">
                     <Grid row gap="lg">
-                        <Grid tablet={{ col: 12 }} desktop={{ col: 8 }} className='pb-20'>
-                            <div className={classes.HighlightTitle}>
-                                This is the Introduction Text
-                            </div>
-                            <div>
-                                {longText}
-                            </div>
-                        </Grid>
-                        <Grid tablet={{ col: 12 }} desktop={{ col: 4 }} className='pb-20 m-auto'>
+                        <Grid tablet={{ col: 12 }} desktop={{ col: 5 }} className='pb-20 m-auto'>
                             <Link className={classes.BrowseCTA} href='/forecast'>
                                 <div className={classes.BrowseCTACircle} />
                                 Browse Opportunities
                             </Link>
                         </Grid>
-                        <Grid tablet={{ col: 12 }} desktop={{ col: 6 }} className='pb-20'>
-                            <div>
-                                <div className='flex flex-col border-b  border-gray-300'>
-                                    {starAdornment}
-                                    <span className={classes.AnnouncementHeading}>
-                                        Announcements
-                                    </span>
-                                </div>
-                                <div className={classes.AnnouncementSection}>
-                                    {announcements.map((o, i) => {
-                                        return (
-                                            <div key={i} className={classes.AnnouncementItem}>
-                                                <span className={classes.AnnouncementDate}>
-                                                    ——  November 3, 2022
-                                                </span>
-                                                <span className={classes.AnnouncementTitle}>
-                                                    {o}
-                                                </span>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
+                        <Grid tablet={{ col: 12 }} desktop={{ col: 7 }} className='pb-20'>
+                            <div className={classes.HighlightTitle}>
+                                This is the Introduction Text
+                            </div>
+                            <div className={classes.IntroMessage}>
+                                {longText}
                             </div>
                         </Grid>
-                        <Grid tablet={{ col: 12 }} desktop={{ col: 6 }} className='pb-20'>
-                            <div>
+                        <Grid tablet={{ col: 12 }} desktop={{ col: 7 }} className='pb-20'>
+                            <div className={classes.FeaturedSection}>
                                 <div className='flex flex-col items-center'>
                                     {starAdornment}
                                     <span className={classes.FeaturedHeading}>
@@ -110,14 +96,38 @@ const Home: NextPage = () => {
                                     </span>
                                     <div className={classes.FeaturedDivider} />
                                 </div>
-                                <div className={classes.FeaturedSection}>
-                                    {announcements.map((o, i) => {
+                                <div className={classes.FeaturedContent}>
+                                    {data && data.map((o, i) => {
                                         return (
-                                            <div key={i} className={classes.FeaturedItem}>
+                                            <Link key={i} className={classes.FeaturedItem} href={'/forecast/' + convertNumber(o.number)}>
                                                 <span className={classes.FeaturedDate}>
-                                                    November 3, 2022
+                                                    {convertDate(o.created)}
                                                 </span>
                                                 <span className={classes.FeaturedTitle}>
+                                                    {o.requirement_description}
+                                                </span>
+                                            </Link>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid tablet={{ col: 12 }} desktop={{ col: 5 }} className='pb-20'>
+                            <div className='p-10'>
+                                <div className='flex flex-col border-b  border-gray-300'>
+                                    {starAdornment}
+                                    <span className={classes.AnnouncementHeading}>
+                                        Announcements
+                                    </span>
+                                </div>
+                                <div className={classes.AnnouncementContent}>
+                                    {announcements.map((o, i) => {
+                                        return (
+                                            <div key={i} className={classes.AnnouncementItem}>
+                                                <span className={classes.AnnouncementDate}>
+                                                    —  November 3, 2022
+                                                </span>
+                                                <span className={classes.AnnouncementTitle}>
                                                     {o}
                                                 </span>
                                             </div>
