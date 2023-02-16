@@ -1,10 +1,12 @@
 import React from 'react';
+
 import type { Forecast } from '../../../../utils/types';
+import { convertNumber, convertDuration, convertQuarter, convertDate } from '../../../../utils/utils';
+
 import GlanceId from '../GlanceId/GlanceId';
 import GlanceField from '../GlanceField/GlanceField';
 import LabelValue from '../LabelValue/LabelValue';
 import RequirementTag from '../RequirementTag/RequirementTag';
-import { convertNumber, convertDuration, convertQuarter, convertDate } from '../../../../utils/utils';
 import classes from './ListingCard.module.css';
 
 interface Props {
@@ -15,7 +17,7 @@ const ListingCard: React.FC<Props> = (props) => {
 
     const { data } = props;
 
-    const updated = data.updated ? convertDate(data.updated) : '';
+    const updated = data.updated ? convertDate(data.updated, true) : '';
 
     return (
         <div className={classes.ListingCard}>

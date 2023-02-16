@@ -23,6 +23,15 @@ export const convertQuarter = (quarter?: number | null) => {
     return quarter ? ('Q' + quarter) : '';
 }
 
-export const convertDate = (date: Date | null) => {
-    return date ? ((date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()) : '';
+const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+];
+
+export const convertDate = (date: Date | null, numeric?: boolean) => {
+    // Format: M/d/yyyy (e.g. 9/3/2000)
+    if (numeric)
+        return date ? ((date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear()) : '';
+    // Format: M d, yyyy (e.g. September 3, 2000)
+    return date ? ((months[date.getMonth()]) + ' ' + date.getDate() + ', ' + date.getFullYear()) : '';
 }
