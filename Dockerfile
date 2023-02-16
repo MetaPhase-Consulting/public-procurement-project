@@ -1,6 +1,10 @@
 # Use an official Node.js runtime as the base image
 FROM node:18-alpine
 
+# Set the database URL as a build argument
+ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
+
 # Set the working directory in the container
 WORKDIR /app
 
