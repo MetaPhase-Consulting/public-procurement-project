@@ -36,27 +36,27 @@ export const estimatedValue: FilterSection[] = [{
     value: '$5M-$10M',
     label: '>$5M and <$10M',
 }, {
-    id: 'est-val-4',
+    id: 'est-val-5',
     field: 'estimated_value',
     value: '$10M-$20M',
     label: '>$10M and <$20M',
 }, {
-    id: 'est-val-5',
+    id: 'est-val-6',
     field: 'estimated_value',
     value: '$20M-$50M',
     label: '>$20M and <$50M',
 }, {
-    id: 'est-val-6',
+    id: 'est-val-7',
     field: 'estimated_value',
     value: '$50M-$100M',
     label: '>$50M and <$100M',
 }, {
-    id: 'est-val-7',
+    id: 'est-val-8',
     field: 'estimated_value',
     value: '$100M-$500M',
     label: '>$100M and <$500M',
 }, {
-    id: 'est-val-8',
+    id: 'est-val-9',
     field: 'estimated_value',
     value: '>$500M',
     label: '>$500M',
