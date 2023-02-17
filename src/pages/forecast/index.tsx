@@ -1,13 +1,14 @@
 import React from 'react';
 import { type NextPage } from 'next';
 
-import { Breadcrumb, BreadcrumbBar, BreadcrumbLink, CardGroup, Grid, GridContainer, Pagination } from '@trussworks/react-uswds';
+import { CardGroup, Grid, GridContainer, Pagination } from '@trussworks/react-uswds';
 
 import { api } from '../../utils/api';
 import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/ForecastList/Filters/Filters';
 import ListingCard from '../../components/ForecastList/Card/ListingCard/ListingCard';
 import SubNavigation from '../../components/Layout/SubNavigation';
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 import classes from '../../components/ForecastList/ForecastList.module.css';
 import FilterChip from '../../components/ForecastList/FilterChip';
@@ -182,19 +183,23 @@ const ForecastList: NextPage = () => {
     const total = api.forecast.getTotalResults.useQuery(input).data;
     const { data } = api.forecast.getForecasts.useQuery(input);
 
+    React.useEffect(() => {
+        if (total) {
+            const lastPage = Math.ceil(total / 3);
+            if (page > lastPage) {
+                setPage(lastPage);
+            }
+        }
+    }, [page, total])
+
     return (
         <Layout>
             <SubNavigation selected='Browse Opportunities' addMargin />
+            <PageHeader
+                title="Browse Forecast Opportunities"
+                breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'Browse Opportunities' }]}
+            />
             <div className="row mb-24">
-                <BreadcrumbBar className="py-2 text-sm">
-                    <Breadcrumb>
-                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                    </Breadcrumb>
-                    <Breadcrumb>Browse Opportunities</Breadcrumb>
-                </BreadcrumbBar>
-                <h1 className="featured-content__headline mb-10">
-                    Browse Forecast Opportunities
-                </h1>
                 <GridContainer className="max-w-none p-1 w-full">
                     <Grid row gap="lg">
                         <Grid tablet={{ col: 6 }} desktop={{ col: 3 }}>
@@ -219,22 +224,24 @@ const ForecastList: NextPage = () => {
                                 <span> Results</span>
                             </div>
                             {renderChips()}
-                            <CardGroup className="flex flex-col w-full m-0 mt-6">
-                                {data && data.map(forecast => {
-                                    return (
-                                        <ListingCard key={forecast.number} data={forecast} />
-                                    )
-                                })}
-                            </CardGroup>
                             {(total && total > 0) ?
-                                <Pagination
-                                    pathname=''
-                                    totalPages={Math.ceil(total / 3)}
-                                    currentPage={page}
-                                    onClickPageNumber={(_event, page: number) => setPage(page)}
-                                    onClickNext={() => setPage(page + 1)}
-                                    onClickPrevious={() => setPage(page - 1)}
-                                /> : undefined
+                                <>
+                                    <CardGroup className="flex flex-col w-full m-0 mt-6">
+                                        {data && data.map(forecast => {
+                                            return (
+                                                <ListingCard key={forecast.number} data={forecast} />
+                                            )
+                                        })}
+                                    </CardGroup>
+                                    <Pagination
+                                        pathname=''
+                                        totalPages={Math.ceil(total / 3)}
+                                        currentPage={page}
+                                        onClickPageNumber={(_event, page: number) => setPage(page)}
+                                        onClickNext={() => setPage(page + 1)}
+                                        onClickPrevious={() => setPage(page - 1)}
+                                    />
+                                </> : undefined
                             }
                         </Grid>
                     </Grid>
