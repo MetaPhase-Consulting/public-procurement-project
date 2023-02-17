@@ -1,0 +1,23 @@
+.Chip {
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background-color: #595959;
+    color: white;
+    padding: 0px 8px 0px 12px;
+    margin: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.Delete {
+    cursor: pointer;
+    padding: 3px;
+    padding-left: 13px;
+}
+
+.Delete:after {
+    display: inline-block;
+    content: "\00d7";
+    zoom: 150%;
+}

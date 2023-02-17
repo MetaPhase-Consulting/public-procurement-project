@@ -19,14 +19,24 @@ const ListingCard: React.FC<Props> = (props) => {
 
     const updated = data.updated ? convertDate(data.updated, true) : '';
 
+    const truncateTitle = (title?: string | null) => {
+        if (title) {
+            if (title.length > 150) {
+                return title.substring(0, 100) + '...';
+            }
+            return title
+        }
+        return 'No Title';
+    }
+
     return (
         <div className={classes.ListingCard}>
             <div className={classes.ListingCardInner}>
                 <div className={classes.ListingCardHeader}>
                     <GlanceId value={convertNumber(data.number)} />
                     <div className={classes.Title}>
-                        <a href={'/forecast/' + convertNumber(data.number)}>
-                            {data.requirement_description}
+                        <a href={'/forecast/' + convertNumber(data.number)} title={data.requirement_description ? data.requirement_description : ''}>
+                            {truncateTitle(data.requirement_description)}
                         </a>
                     </div>
                     <RequirementTag value={data.new_requirement ?? ''} />
