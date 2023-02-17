@@ -4,7 +4,7 @@ import type { FilterSection } from './FilterSections';
 import { newRequirement, estimatedValue, pastSetAside } from './FilterSections';
 
 interface Props {
-    updateFilters: (event: React.ChangeEvent<HTMLInputElement>, field: string, value: string) => void;
+    updateFilters: (field: string, value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
     getFilterIndex: (field: string, value: string) => any;
     clearFilters: (field?: string) => void;
 }
@@ -30,7 +30,7 @@ const Filters: React.FC<Props> = (props) => {
                             name={o.id}
                             label={o.label ?? o.value}
                             className={i == 0 ? '-mt-4 checkbox-label' : 'checkbox-label'}
-                            onChange={(event) => updateFilters(event, o.field, o.value)}
+                            onChange={(event) => updateFilters(o.field, o.value, event)}
                             checked={getFilterIndex(o.field, o.value) > -1}
                         />
                     )

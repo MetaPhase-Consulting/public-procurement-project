@@ -1,15 +1,16 @@
 import React from 'react';
 import { type NextPage } from 'next';
-import {
-    Breadcrumb, BreadcrumbBar, BreadcrumbLink, CardGroup,
-    Grid, GridContainer, Pagination
-} from '@trussworks/react-uswds';
+
+import { Breadcrumb, BreadcrumbBar, BreadcrumbLink, CardGroup, Grid, GridContainer, Pagination } from '@trussworks/react-uswds';
 
 import { api } from '../../utils/api';
 import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/ForecastList/Filters/Filters';
 import ListingCard from '../../components/ForecastList/Card/ListingCard/ListingCard';
 import SubNavigation from '../../components/Layout/SubNavigation';
+
+import classes from '../../components/ForecastList/ForecastList.module.css';
+import FilterChip from '../../components/ForecastList/FilterChip';
 
 type FilterState = {
     new_requirement: string[],
@@ -84,19 +85,28 @@ const ForecastList: NextPage = () => {
      * the filter fields as keys and value set as an array, this function
      * helps make sure filters are being removed or added in the proper location.
      */
-    const updateFilters = (event: React.ChangeEvent<HTMLInputElement>, field: string, value: string) => {
+    const updateFilters = (field: string, value: string, event?: React.ChangeEvent<HTMLInputElement>, remove?: boolean) => {
         let newFilters = filters;
         if (filters.hasOwnProperty(field)) {
             const f: any = filters;
             const arr = f[field];
             const index = arr.indexOf(value);
 
-            if (event.target.checked && index == -1) {
-                arr.push(value)
-            } else if (!event.target.checked && index > -1) {
-                arr.splice(index, 1);
+            // Add filter value
+            if (index == -1) {
+                if (event && event.target.checked) {
+                    arr.push(value)
+                }
             }
-            newFilters = { ...newFilters, ...arr }
+
+            // Remove filter value
+            if (index > -1) {
+                if ((event && !event.target.checked) || remove) {
+                    arr.splice(index, 1);
+                }
+            }
+
+            newFilters = { ...newFilters }
         }
         setFilters(newFilters);
     }
@@ -120,6 +130,46 @@ const ForecastList: NextPage = () => {
         }
     }
 
+    /**
+     * Generates FilterChip components of all selected filters in the filter state.
+     * A FilterChip is a data pill listing the name of the filter and an 'X' button
+     * to remove the respective filter.
+     * 
+     * @returns React Node of all filter chips
+     */
+    const renderChips = () => {
+        const chips = []
+        for (const [key, value] of Object.entries(filters)) {
+            console.log(key)
+            for (const v of value) {
+                chips.push(
+                    <FilterChip
+                        text={v.toString()}
+                        handleDelete={() => updateFilters(key, v, undefined, true)}
+                    />
+                )
+            }
+        }
+
+
+
+        return chips.length > 0 && (
+            <div className='flex flex-row justify-between'>
+                <div className='flex flex-row  items-center '>
+                    <span className={classes.ChipsHeading}>Filtering By</span>
+                    <div className='flex flex-row  py-2 flex-wrap'>
+                        {chips}
+                    </div>
+                </div>
+                <button
+                    className="underline text-sm clear-button"
+                    onClick={() => { clearFilters() }}
+                >
+                    Clear All
+                </button>
+            </div>
+        );
+    }
 
     // =================== QUERY FUNCTIONS ===================
 
@@ -164,11 +214,12 @@ const ForecastList: NextPage = () => {
                                     onSubmit={(event) => { setSearchQuery(event.toString()) }}
                                 />
                             </div> */}
-                            <div className="py-3 border-b border-gray-400 mb-8">
+                            <div className="py-3 border-b border-gray-400 mb-1">
                                 <span className='font-semibold'>{total}</span>
                                 <span> Results</span>
                             </div>
-                            <CardGroup className="flex flex-col w-full m-0">
+                            {renderChips()}
+                            <CardGroup className="flex flex-col w-full m-0 mt-6">
                                 {data && data.map(forecast => {
                                     return (
                                         <ListingCard key={forecast.number} data={forecast} />
