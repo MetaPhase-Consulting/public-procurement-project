@@ -140,7 +140,13 @@ const Home: NextPage = () => {
                                 or informational section.
                             </div>
                             <div className={classes.HighlightMessage}>
-                                {longText}
+                                Public Law 100-656, the Business Opportunity Development Reform Act of 1988, amended the Small Business Act to place new emphasis on acquisition planning.
+                                The law requires agencies to compile and make available projections of contracting opportunities small and small disadvantaged firms may be able to perform.
+                                <br />
+                                <br />
+                                In response to this requirement, the Department of State Forecast of Contract Opportunities includes projections of anticipated contract above the simplified acquisition threshold that small businesses, small disadvantaged businesses, women-owned small businesses, HUBZone small businesses, and service-disabled veteran-owned small businesses may be able to perform under direct contracts with the Government, or through subcontracting opportunities.
+                                This Department-wide forecast of contract opportunities expands upon individual efforts already implemented at Department of State aimed at enhancing competition in contracting.
+                                The forecast consolidates anticipated procurements at various State Department acquisition activities.
                             </div>
                         </Grid>
                         <Grid
