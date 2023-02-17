@@ -29,11 +29,7 @@ const Home: NextPage = () => {
             What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
             It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-            <br /><br />
             Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-            The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &apos;Content here, content here&apos;, making it look like readable English.
-            Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for &apos;lorem ipsum&apos; will uncover many web sites still in their infancy.
-            Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
         </p>
     )
 
@@ -82,7 +78,13 @@ const Home: NextPage = () => {
                                 This is the Introduction Text
                             </div>
                             <div className={classes.IntroMessage}>
-                                {longText}
+                                Public Law 100-656, the Business Opportunity Development Reform Act of 1988, amended the Small Business Act to place new emphasis on acquisition planning.
+                                The law requires agencies to compile and make available projections of contracting opportunities small and small disadvantaged firms may be able to perform.
+                                <br />
+                                <br />
+                                In response to this requirement, the Department of State Forecast of Contract Opportunities includes projections of anticipated contract above the simplified acquisition threshold that small businesses, small disadvantaged businesses, women-owned small businesses, HUBZone small businesses, and service-disabled veteran-owned small businesses may be able to perform under direct contracts with the Government, or through subcontracting opportunities.
+                                This Department-wide forecast of contract opportunities expands upon individual efforts already implemented at Department of State aimed at enhancing competition in contracting.
+                                The forecast consolidates anticipated procurements at various State Department acquisition activities.
                             </div>
                         </Grid>
                         <Grid tablet={{ col: 12 }} desktop={{ col: 7 }} className='pb-20'>
@@ -134,29 +136,23 @@ const Home: NextPage = () => {
                                 </div>
                             </div>
                         </Grid>
-                        <Grid tablet={{ col: 7 }} desktop={{ col: 9 }}>
+                        <Grid tablet={{ col: 7 }} desktop={{ col: 8 }}>
                             <div className={classes.HighlightTitle}>
-                                Some Top Level Text to start the message
+                                Top Level Text to start the message
                                 or informational section.
                             </div>
                             <div className={classes.HighlightMessage}>
-                                Public Law 100-656, the Business Opportunity Development Reform Act of 1988, amended the Small Business Act to place new emphasis on acquisition planning.
-                                The law requires agencies to compile and make available projections of contracting opportunities small and small disadvantaged firms may be able to perform.
-                                <br />
-                                <br />
-                                In response to this requirement, the Department of State Forecast of Contract Opportunities includes projections of anticipated contract above the simplified acquisition threshold that small businesses, small disadvantaged businesses, women-owned small businesses, HUBZone small businesses, and service-disabled veteran-owned small businesses may be able to perform under direct contracts with the Government, or through subcontracting opportunities.
-                                This Department-wide forecast of contract opportunities expands upon individual efforts already implemented at Department of State aimed at enhancing competition in contracting.
-                                The forecast consolidates anticipated procurements at various State Department acquisition activities.
+                                {longText}
                             </div>
                         </Grid>
                         <Grid
-                            tablet={{ col: 5 }} desktop={{ col: 3 }}
+                            tablet={{ col: 5 }} desktop={{ col: 4 }}
                             className='flex flex-row border-l border-gray-300 justify-center items-center'
                         >
                             <div className={classes.HighlightPhoto} />
                             <div className='flex flex-col'>
                                 <span className={classes.HighlightRole}>
-                                    Deputy Assistant Secretary for Acquisition & Senior Procurement Executive at U.S. Department of State
+                                    Deputy Assistant Secretary, OSDBU
                                 </span>
                                 <span className={classes.HighlightAuthor}>
                                     Mike Derrios
