@@ -1,31 +1,36 @@
 import * as React from 'react';
-import classes from './Breadcrumbs.module.css';
-import {Breadcrumb, BreadcrumbBar, BreadcrumbLink} from "@trussworks/react-uswds";
+import { Breadcrumb, BreadcrumbBar, BreadcrumbLink } from '@trussworks/react-uswds';
+// import classes from './Breadcrumbs.module.css';
+
+export type Breadcrumb = {
+    label: string,
+    link?: string,
+}
 
 interface Props {
-  items?: object;
-  classes?: string;
+    items?: Breadcrumb[];
+    classes?: string;
 }
 
 const Breadcrumbs: React.FC<Props> = props => {
 
-  const items = props.items ? props.items : [];
+    const items = props.items ? props.items : [];
 
     return (
-      <div id="breadcrumb__wrapper">
-          <BreadcrumbBar className={props.classes}>
-          {items && items.map((item) => {
-            return (
-              <Breadcrumb>
-                {item.link
-                  ? <BreadcrumbLink href={item.link}>{item.label}</BreadcrumbLink>
-                  : <>{item.label}</>
-                }
-              </Breadcrumb>
-            )
-          })}
-          </BreadcrumbBar>
-      </div>
+        <div id="breadcrumb__wrapper">
+            <BreadcrumbBar className={props.classes}>
+                {items && items.map((item, index) => {
+                    return (
+                        <Breadcrumb key={index}>
+                            {item.link
+                                ? <BreadcrumbLink href={item.link}>{item.label}</BreadcrumbLink>
+                                : <>{item.label}</>
+                            }
+                        </Breadcrumb>
+                    )
+                })}
+            </BreadcrumbBar>
+        </div>
     );
 }
 

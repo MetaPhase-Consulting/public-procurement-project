@@ -1,14 +1,14 @@
 import React from 'react';
 import { type NextPage } from 'next';
 
-import { Breadcrumb, BreadcrumbBar, BreadcrumbLink, CardGroup, Grid, GridContainer, Pagination } from '@trussworks/react-uswds';
+import { CardGroup, Grid, GridContainer, Pagination } from '@trussworks/react-uswds';
 
 import { api } from '../../utils/api';
 import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/ForecastList/Filters/Filters';
 import ListingCard from '../../components/ForecastList/Card/ListingCard/ListingCard';
 import SubNavigation from '../../components/Layout/SubNavigation';
-import PageHeader from "../../components/PageHeader/PageHeader";
+import PageHeader from '../../components/PageHeader/PageHeader';
 
 import classes from '../../components/ForecastList/ForecastList.module.css';
 import FilterChip from '../../components/ForecastList/FilterChip';
@@ -186,7 +186,10 @@ const ForecastList: NextPage = () => {
     return (
         <Layout>
             <SubNavigation selected='Browse Opportunities' addMargin />
-            <PageHeader title="Browse Forecast Opportunities" breadcrumbs={[{label: 'Home', link: '/'}, {label: 'Browse Opportunities'}]}/>
+            <PageHeader
+                title="Browse Forecast Opportunities"
+                breadcrumbs={[{ label: 'Home', link: '/' }, { label: 'Browse Opportunities' }]}
+            />
             <div className="row mb-24">
                 <GridContainer className="max-w-none p-1 w-full">
                     <Grid row gap="lg">

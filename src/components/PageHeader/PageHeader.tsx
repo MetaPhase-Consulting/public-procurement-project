@@ -1,9 +1,10 @@
 import React from 'react';
 import Breadcrumbs from '../../components/Layout/Breadcrumbs';
-import classes from './PageHeader.module.css';
+import type { Breadcrumb } from '../../components/Layout/Breadcrumbs';
+// import classes from './PageHeader.module.css';
 
 interface Props {
-    breadcrumbs: object;
+    breadcrumbs: Breadcrumb[];
     children?: React.ReactNode;
     title?: string | null;
     meta?: string;
