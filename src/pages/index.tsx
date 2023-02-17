@@ -152,7 +152,8 @@ const Home: NextPage = () => {
                             <div className={classes.HighlightPhoto} />
                             <div className='flex flex-col'>
                                 <span className={classes.HighlightRole}>
-                                    Deputy Assistant Secretary, OSDBU
+                                    Deputy Assistant Secretary for Acquisition
+                                    Senior Procurement Executive
                                 </span>
                                 <span className={classes.HighlightAuthor}>
                                     Mike Derrios
