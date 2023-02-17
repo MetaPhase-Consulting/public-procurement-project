@@ -183,6 +183,15 @@ const ForecastList: NextPage = () => {
     const total = api.forecast.getTotalResults.useQuery(input).data;
     const { data } = api.forecast.getForecasts.useQuery(input);
 
+    React.useEffect(() => {
+        if (total) {
+            const lastPage = Math.ceil(total / 3);
+            if (page > lastPage) {
+                setPage(lastPage);
+            }
+        }
+    }, [page, total])
+
     return (
         <Layout>
             <SubNavigation selected='Browse Opportunities' addMargin />
@@ -215,22 +224,24 @@ const ForecastList: NextPage = () => {
                                 <span> Results</span>
                             </div>
                             {renderChips()}
-                            <CardGroup className="flex flex-col w-full m-0 mt-6">
-                                {data && data.map(forecast => {
-                                    return (
-                                        <ListingCard key={forecast.number} data={forecast} />
-                                    )
-                                })}
-                            </CardGroup>
                             {(total && total > 0) ?
-                                <Pagination
-                                    pathname=''
-                                    totalPages={Math.ceil(total / 3)}
-                                    currentPage={page}
-                                    onClickPageNumber={(_event, page: number) => setPage(page)}
-                                    onClickNext={() => setPage(page + 1)}
-                                    onClickPrevious={() => setPage(page - 1)}
-                                /> : undefined
+                                <>
+                                    <CardGroup className="flex flex-col w-full m-0 mt-6">
+                                        {data && data.map(forecast => {
+                                            return (
+                                                <ListingCard key={forecast.number} data={forecast} />
+                                            )
+                                        })}
+                                    </CardGroup>
+                                    <Pagination
+                                        pathname=''
+                                        totalPages={Math.ceil(total / 3)}
+                                        currentPage={page}
+                                        onClickPageNumber={(_event, page: number) => setPage(page)}
+                                        onClickNext={() => setPage(page + 1)}
+                                        onClickPrevious={() => setPage(page - 1)}
+                                    />
+                                </> : undefined
                             }
                         </Grid>
                     </Grid>
