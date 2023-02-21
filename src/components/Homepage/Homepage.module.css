@@ -140,7 +140,7 @@
 
 .BrowseCTALabel {
     font-size: 32px;
-    padding: 15px 0px 15px;
+    padding: 15px 0px 0px;
     font-family: EB Garamond, Times, Serif;
     text-align: center;
 }
