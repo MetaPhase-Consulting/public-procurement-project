@@ -2,7 +2,7 @@
 
 ## Instructions
 
-Append a version section to the top of the list.
+Developers and maintainers are required to add details of the latest snapshot of the repository to this changelog whenever a new version is ready to merge into `dev` or `main`.
 
 Follow semantic versioning rules:
 
@@ -11,7 +11,8 @@ X.Y.Z
 - Y: MINOR version when you add functionality in a backwards compatible manner 
 - Z: PATCH version when you make backwards compatible bug fixes 
 
-Copy and paste the template below for when a new version is ready to merge into `dev` or `main`.
+Copy and paste the template below and append a section to the top of the list.
+
 
 ## X.Y.Z (yyyy-MM-dd)
 
@@ -50,10 +51,12 @@ General TLDR description if necessary.
 - Imported government banner, header, and footer
 - Setup theming and global styling
 - Setup unit testing dependencies and initial unit tests
+- Added Dockerfile
 
 
 
-## 0.1.0 (2022-12-24)
+## 0.1.0 (2023-01-05)
 
 ### Features 
 - Generated the app using (Create T3 App)(https://create.t3.gg/) with basic techstack
+- Setup initial configs for package manager, prettier, typescript, next, css, etc.
