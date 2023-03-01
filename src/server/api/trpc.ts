@@ -46,6 +46,10 @@ export const createTRPCContext = async (_opts: CreateNextContextOptions) => {
     return await createInnerTRPCContext({});
 };
 
+export const createTRPCAwsContext = async (_opts: CreateAWSLambdaContextOptions<APIGatewayProxyEvent>) => {
+    return await createInnerTRPCContext({});
+}
+
 /**
  * 2. INITIALIZATION
  *
@@ -54,6 +58,8 @@ export const createTRPCContext = async (_opts: CreateNextContextOptions) => {
  */
 import { initTRPC } from '@trpc/server';
 import superjson from 'superjson';
+import { CreateAWSLambdaContextOptions } from '@trpc/server/adapters/aws-lambda';
+import { APIGatewayProxyEvent } from 'aws-lambda';
 
 const t = initTRPC
     .context<Awaited<ReturnType<typeof createTRPCContext>>>()

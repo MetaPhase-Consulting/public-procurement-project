@@ -9,9 +9,19 @@
 const config = {
   reactStrictMode: true,
   swcMinify: true,
+  images: {
+    unoptimized: true
+  },
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
   },
+  output: 'standalone',
+  /*
+  experimental: {
+    appDir: true,
+    serverComponentsExternalPackages: ['@prisma/client', 'serverless-http']
+  },
+  */
 };
 export default config;
