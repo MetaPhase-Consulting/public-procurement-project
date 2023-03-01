@@ -74,6 +74,17 @@ For example:
 
     [PPP-11001] example short description
 
+## Changes and Versioning
+
+Whenever preparing to merge into `dev`, which applies to every working branch, or `main`, which applies to every release branch from `dev`, always ensure that changes are descriptively tracked in the repository [CHANGELOG](./CHANGELOG.md) and the version number is updated in the [package manager metadata](./package.json).
+
+
+
+## Git Flow 
+
+Refer to Atlassian's guide to [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
+
+
 
 # Codebase Standards
 
