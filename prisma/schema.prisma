@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-    provider     = "mysql"
+    provider     = "mongodb"
     url          = env("DATABASE_URL")
     // It is possible we may switch to foreignKeys relationmode if stop using PlanetScale
     relationMode = "prisma"
@@ -19,7 +19,7 @@ datasource db {
 
 model Announcement {
     // Metadata
-    id         String    @id @default(uuid())
+    id         String    @id @map("_id")
     synced     DateTime  @default(now())
     created    DateTime?
     created_by String?
@@ -32,14 +32,14 @@ model Announcement {
     // Main Attributes
     name    String
     title   String?
-    summary String?   @db.MediumText
+    summary String?
     from    DateTime?
     to      DateTime?
 }
 
 model HighlightMessage {
     // Metadata
-    id              String    @id @default(uuid())
+    id         String    @id @map("_id")
     number          String    @unique
     synced          DateTime  @default(now())
     created         DateTime?
@@ -52,15 +52,15 @@ model HighlightMessage {
     state           Int?
 
     // Main Attributes
-    message String @db.MediumText
+    message String?
 }
 
 model Forecast {
     // Metadata
-    id              String    @id @default(uuid())
+    id              String    @id @map("_id") @db.ObjectId
     number          String    @unique
 
-    synced          DateTime  @default(now())
+    synced          DateTime?  @default(now())
     created         DateTime?
     created_by      String?
     modified        DateTime?
@@ -71,10 +71,10 @@ model Forecast {
 
     work_notes      String?
     work_notes_list String?
-    active          Boolean   @default(true)
+    active          Boolean   @default(false)
     archive         Boolean   @default(false)
     featured        Boolean   @default(false)
-    state           Int?
+    state           String?
 
     // Flat Attributes
     anticipated_award_date                DateTime?
@@ -82,186 +82,147 @@ model Forecast {
     co_contact                            String?
     dollar_value_with_base_option         String?
     fiscal_year                           Int?
-    incumbent_contractor                  String?   @db.VarChar(100)
-    long_description                      String?   @db.MediumText
-    poc_email                             String?   @db.VarChar(100)
-    poc_name                              String?   @db.VarChar(100)
-    requirement_description               String?   @db.MediumText
+    incumbent_contractor                  String?
+    long_description                      String?
+    poc_email                             String?
+    poc_name                              String?
+    requirement_description               String?
     target_award_quarter                  Int?
+    fiscal_year_and_quarter               String?
 
-    // Filterable Attributes
-    ActionType  ActionType? @relation("ActionType", fields: [action_type], references: [id])
     action_type String?
-
-    PastCompetition  ActionType? @relation("PastCompetition", fields: [past_competition], references: [id])
     past_competition String?
-
-    AwardType  AwardType? @relation(fields: [award_type], references: [id])
     award_type String?
-
-    ContractVehicle  ContractVehicle? @relation(fields: [contract_vehicle], references: [id])
     contract_vehicle String?
-
-    EstimatedValue  EstimatedValue? @relation(fields: [estimated_value], references: [id])
     estimated_value String?
-
-    LengthOfPerformance   Duration? @relation(fields: [length_of_performance], references: [id])
     length_of_performance String?
-
-    NaicsCode  NaicsCode? @relation(fields: [naics_code], references: [id])
     naics_code String?
-
-    NewRequirement  NewRequirement? @relation(fields: [new_requirement], references: [id])
     new_requirement String?
-
-    OfficeSymbol  OfficeSymbol? @relation(fields: [office_symbol], references: [id])
     office_symbol String?
-
-    Location             Location? @relation(fields: [place_of_performance], references: [id])
     place_of_performance String?
-
-    SecurityClearance  SecurityClearance? @relation(fields: [security_clearance], references: [id])
     security_clearance String?
-
-    PastSetAside   SetAside? @relation("PastSetAside", fields: [past_set_aside], references: [id])
     past_set_aside String?
-
-    AnticipatedSetAside   SetAside? @relation("AnticipatedSetAside", fields: [anticipated_set_aside], references: [id])
     anticipated_set_aside String?
-
-    @@index([action_type])
-    @@index([past_competition])
-    @@index([award_type])
-    @@index([contract_vehicle])
-    @@index([estimated_value])
-    @@index([length_of_performance])
-    @@index([naics_code])
-    @@index([new_requirement])
-    @@index([office_symbol])
-    @@index([place_of_performance])
-    @@index([security_clearance])
-    @@index([past_set_aside])
-    @@index([anticipated_set_aside])
 }
 
 model ActionType {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
-    code        String  @unique @db.VarChar(10)
+    code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order  String 
 
     forecasts_action_type      Forecast[] @relation("ActionType")
     forecasts_past_competition Forecast[] @relation("PastCompetition")
 }
 
 model AwardType {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
-    code        String  @unique @db.VarChar(10)
+    code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order  String
 
     forecasts Forecast[]
 }
 
 model ContractVehicle {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
-    code        String  @unique @db.VarChar(10)
+    code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order  String
 
     forecasts Forecast[]
 }
 
 model EstimatedValue {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
-    code        String  @unique @db.VarChar(10)
+    code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order  String
 
     forecasts Forecast[]
 }
 
 model Duration {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
-    code        String  @unique @db.VarChar(10)
+    code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order  String
 
     forecasts Forecast[]
 }
 
 model NaicsCode {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
-    code        String  @unique @db.VarChar(10)
+    code        String  @unique
     description String
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order  String
 
     forecasts Forecast[]
 }
 
 model NewRequirement {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
-    code        String  @unique @db.VarChar(10)
+    code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order String
 
     forecasts Forecast[]
 }
 
 model OfficeSymbol {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
-    code        String  @unique @db.VarChar(10)
+    code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order String
 
     forecasts Forecast[]
 }
 
 model Location {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
     code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order String
 
     forecasts Forecast[]
 }
 
 model SecurityClearance {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
     code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order String
 
     forecasts Forecast[]
 }
 
 model SetAside {
-    id     String   @id @default(uuid())
+    id     String @id @map("_id")
     synced DateTime @default(now())
 
     code        String  @unique
     description String  @unique
-    sort_order  Decimal @db.Decimal(3, 1)
+    sort_order String
 
     forecasts_anticipated_set_aside Forecast[] @relation("AnticipatedSetAside")
     forecasts_past_set_aside        Forecast[] @relation("PastSetAside")

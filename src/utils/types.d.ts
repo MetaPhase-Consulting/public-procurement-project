@@ -40,7 +40,7 @@ export interface Forecast {
     // Metadata
     id: string;
     number: string,
-    synced: Date,
+    synced: Date | null,
     created?: Date | null,
     created_by?: string | null,
     opened?: Date | null,
@@ -50,10 +50,10 @@ export interface Forecast {
     updated_by?: string | null,
     work_notes?: string | null,
     work_notes_list?: string | null,
-    active: boolean
+    active: string | null,
     featured: boolean,
     archive: boolean,
-    state?: number | null,
+    state?: string | null,
 
     // Flat Attributes
     anticipated_award_date?: Date | null,

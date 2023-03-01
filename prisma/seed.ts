@@ -24,13 +24,13 @@ async function main() {
                 create: {
                     id: forecast.sys_id,
                     number: forecast.number ?? '0',
-                    synced: new Date(),
+                    //synced: new Date(),
                     created: new Date(forecast.sys_created_on),
                     modified: new Date(forecast.u_modified),
                     updated: new Date(forecast.sys_updated_on),
-                    active: forecast.active == 'true',
+                    active: forecast.active, // == 'true',
                     featured: forecast.u_featured_opportunity =='true',
-                    state: state,
+                    state: state.toString(),
                     
                     estimated_value: forecast.u_est_value,
                     fiscal_year: fiscalYear,

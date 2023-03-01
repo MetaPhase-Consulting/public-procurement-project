@@ -38,10 +38,39 @@ const listInput = z.object({
 // ============= ROUTER FUNCTION =============
 
 export const forecastRouter = createTRPCRouter({
+    getForecastsAggregate: publicProcedure
+        .input(listInput)
+        .query(({ input, ctx }) => {
+            const retVal = async () => ctx.prisma.forecast.aggregateRaw({
+                pipeline: [
+                    {
+
+                    },
+                    {
+                      $facet: {
+                        places_of_performance: [
+                          {
+                            $group: {
+                              _id: '$u_place_of_performance', 
+                              count: {
+                                '$sum': 1
+                              }
+                            },
+                            $sort: {
+                                _id: 1
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+            });
+            return retVal;
+        }),
     getForecasts: publicProcedure
         .input(listInput)
         .query(({ input, ctx }) => {
-            return  ctx.prisma.forecast.findMany({
+            return ctx.prisma.forecast.findMany({
                 skip: (input.page - 1) * 3,
                 take: 3,
                 orderBy: input.sort,

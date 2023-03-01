@@ -182,6 +182,9 @@ const ForecastList: NextPage = () => {
     }
     const total = api.forecast.getTotalResults.useQuery(input).data;
     const { data } = api.forecast.getForecasts.useQuery(input);
+    const aggregate = api.forecast.getForecastsAggregate.useQuery(input);
+
+    console.log(aggregate);
 
     React.useEffect(() => {
         if (total) {
