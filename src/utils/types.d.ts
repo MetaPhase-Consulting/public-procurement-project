@@ -50,7 +50,7 @@ export interface Forecast {
     updated_by?: string | null,
     work_notes?: string | null,
     work_notes_list?: string | null,
-    active: string | null,
+    active: boolean,
     featured: boolean,
     archive: boolean,
     state?: string | null,
