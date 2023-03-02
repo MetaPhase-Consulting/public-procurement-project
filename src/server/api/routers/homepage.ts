@@ -17,7 +17,7 @@ export const homepageRouter = createTRPCRouter({
                 take: 5,
                 orderBy: {created: 'asc'},
                 where: {
-                    featured: false,
+                    featured: true,
                 },
             });
         }),
