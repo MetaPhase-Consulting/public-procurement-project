@@ -177,7 +177,7 @@ const ForecastList: NextPage = () => {
     const input = {
         search: searchQuery,
         filter: convert(filters),
-        sort: { number: 'asc' },
+        sort: { number: 'desc' },
         page: page
     }
     const total = api.forecast.getTotalResults.useQuery(input).data;
