@@ -4,7 +4,7 @@ import { awsLambdaRequestHandler } from '@trpc/server/adapters/aws-lambda';
 import { env } from '../../../env/server.mjs';
 import { createTRPCAwsContext, createTRPCContext } from '../../../server/api/trpc';
 import { appRouter } from '../../../server/api/root';
-import { inferAsyncReturnType } from '@trpc/server';
+import type { inferAsyncReturnType } from '@trpc/server';
 
 // export API handler
 export default createNextApiHandler({
@@ -23,5 +23,6 @@ export const awsHandler = awsLambdaRequestHandler({
     createContext: createTRPCAwsContext,
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Context = inferAsyncReturnType<typeof awsHandler>;
 export type AppRouter = typeof appRouter;

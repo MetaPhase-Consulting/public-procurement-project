@@ -47,23 +47,23 @@ export const forecastRouter = createTRPCRouter({
 
                     },
                     {
-                      $facet: {
-                        places_of_performance: [
-                          {
-                            $group: {
-                              _id: '$u_place_of_performance', 
-                              count: {
-                                '$sum': 1
-                              }
-                            },
-                            $sort: {
-                                _id: 1
-                            }
-                          }
-                        ]
-                      }
+                        $facet: {
+                            places_of_performance: [
+                                {
+                                    $group: {
+                                        _id: '$u_place_of_performance', 
+                                        count: {
+                                            '$sum': 1
+                                        }
+                                    },
+                                    $sort: {
+                                        _id: 1
+                                    }
+                                }
+                            ]
+                        }
                     }
-                  ]
+                ]
             });
             return retVal;
         }),
