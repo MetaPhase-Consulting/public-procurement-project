@@ -16,19 +16,22 @@ async function main() {
             const fiscalYear = expectedFY ? Number(forecast.u_fiscal_year.slice(-2)) : null;
             const targetAwardQuarter = expectedTAQ ? Number(forecast.u_target_award_quarter.charAt(1)) : null;
 
+            const dbId = (m = Math, d = Date, h = 16, s = (s: number) => m.floor(s).toString(h)) =>
+                s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h))
+
             await prisma.forecast.upsert({
                 where: { 
-                    id: forecast.sys_id
+                    number: forecast.number,
                 },
                 update: {},
                 create: {
-                    id: forecast.sys_id,
-                    number: forecast.number ?? '0',
-                    //synced: new Date(),
+                    id: dbId(),
+                    number: forecast.number,
+                    synced: new Date(),
                     created: new Date(forecast.sys_created_on),
                     modified: new Date(forecast.u_modified),
                     updated: new Date(forecast.sys_updated_on),
-                    active: forecast.active, // == 'true',
+                    active: forecast.active == 'true',
                     featured: forecast.u_featured_opportunity =='true',
                     state: state.toString(),
                     
@@ -46,7 +49,6 @@ async function main() {
                     poc_email: forecast.u_point_of_contact_email_address,
                     requirement_description: forecast.u_requirement_description,
                     target_award_quarter: targetAwardQuarter,
-
                 }
             })
         }
