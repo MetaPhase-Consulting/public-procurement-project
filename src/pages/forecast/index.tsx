@@ -1,7 +1,7 @@
 import React from 'react';
 import { type NextPage } from 'next';
 
-import { CardGroup, Grid, GridContainer, Pagination } from '@trussworks/react-uswds';
+import { CardGroup, Grid, GridContainer, Pagination, Search } from '@trussworks/react-uswds';
 
 import { api } from '../../utils/api';
 import Layout from '../../components/Layout/Layout';
@@ -212,13 +212,13 @@ const ForecastList: NextPage = () => {
                             </div>
                         </Grid>
                         <Grid tablet={{ col: 6 }} desktop={{ col: 9 }}>
-                            {/* <div className="flex justify-end">
+                            <div className="flex justify-end">
                                 <Search
                                     size="small"
                                     placeholder="Search..."
                                     onSubmit={(event) => { setSearchQuery(event.toString()) }}
                                 />
-                            </div> */}
+                            </div>
                             <div className="py-3 border-b border-gray-400 mb-1">
                                 <span className='font-semibold'>{total}</span>
                                 <span> Results</span>
