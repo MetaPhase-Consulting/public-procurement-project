@@ -9,8 +9,8 @@ import { createTRPCRouter, publicProcedure } from '../trpc';
  * This is the zod type for the input required on the browse forecast feature.
  * It accepts values necessary for searching, sorting, filtering, and pagination.
  */
-const listInput = z.object({ 
-    search: z.string(), 
+const listInput = z.object({
+    search: z.string(),
     sort: z.any(),
     filter: z.object({
         new_requirement: z.array(z.any()),
@@ -41,28 +41,87 @@ export const forecastRouter = createTRPCRouter({
     getForecastsAggregate: publicProcedure
         .input(listInput)
         .query(({ input, ctx }) => {
-            const retVal = async () => ctx.prisma.forecast.aggregateRaw({
-                pipeline: [
-                    {
+            const props = Object.getOwnPropertyNames(input.filter);
+            const enabledFilters = props.filter(prop => (<any[]>input.filter[prop as keyof typeof input.filter]).length > 0)
 
-                    },
-                    {
-                        $facet: {
-                            places_of_performance: [
-                                {
-                                    $group: {
-                                        _id: '$u_place_of_performance', 
-                                        count: {
-                                            '$sum': 1
-                                        }
+            /*
+            let mf: any;
+
+            enabledFilters.forEach(enabledFilter => {
+                if (!!!mf) mf = { $match: {} };
+                mf.$match = input.filter[enabledFilter as keyof typeof input.filter]
+            })
+            */
+
+            const filters = enabledFilters.map(filter => {
+                const filterValues = (<any[]>input.filter[filter as keyof typeof input.filter]);
+                const mongoFilter = filterValues.map(fv => {
+                    return { $eq: [`$${filter}`, fv] }
+                });
+                return { $expr: { $or: filterValues } };
+            });
+
+            const match = filters.length > 0 ? { $and: filters } : {};
+
+            console.log(JSON.stringify(match));
+
+            const retVal = ctx.prisma.forecast.aggregateRaw({
+                pipeline: [
+                        {
+                            $match: match
+                        },
+                        {
+                            $facet: {
+                                places_of_performance: [
+                                    {
+                                        $group: {
+                                            _id: "$place_of_performance",
+                                            count: {
+                                                $sum: 1,
+                                            },
+                                        },
                                     },
-                                    $sort: {
-                                        _id: 1
-                                    }
-                                }
-                            ]
+                                    {
+                                        $sort: {
+                                            _id: 1,
+                                        },
+                                    },
+                                ],
+                                new_requirements: [
+                                    {
+                                        $group: {
+                                            _id: "$new_requirement",
+                                            count: {
+                                                $sum: 1,
+                                            },
+                                        },
+                                    },
+                                    {
+                                        $sort: {
+                                            _id: 1,
+                                        },
+                                    },
+                                ],
+                                resultData: [
+                                    {
+                                        $limit: 3,
+                                    },
+                                    {
+                                        $skip: 0,
+                                    },
+                                    {
+                                        $sort: {
+                                            number: 1,
+                                        },
+                                    },
+                                ],
+                                pageInfo: [
+                                    {
+                                        $count: "totalRecords",
+                                    },
+                                ],
+                            },
                         }
-                    }
                 ]
             });
             return retVal;
@@ -76,9 +135,9 @@ export const forecastRouter = createTRPCRouter({
                 orderBy: input.sort,
                 where: {
                     AND: [
-                        {OR: input.filter.new_requirement},
-                        {OR: input.filter.estimated_value},
-                        {OR: input.filter.past_set_aside},
+                        { OR: input.filter.new_requirement },
+                        { OR: input.filter.estimated_value },
+                        { OR: input.filter.past_set_aside },
                     ]
                     // OR: input.search ? [
                     //     {number: {search: input.search}},
@@ -93,29 +152,29 @@ export const forecastRouter = createTRPCRouter({
     getTotalResults: publicProcedure
         .input(listInput)
         .query(({ input, ctx }) => {
-            return  ctx.prisma.forecast.count({
+            return ctx.prisma.forecast.count({
                 where: {
                     AND: [
-                        {OR: input.filter.new_requirement},
-                        {OR: input.filter.estimated_value},
-                        {OR: input.filter.past_set_aside},
+                        { OR: input.filter.new_requirement },
+                        { OR: input.filter.estimated_value },
+                        { OR: input.filter.past_set_aside },
                     ]
                 },
             });
         }),
     getById: publicProcedure
-        .input(z.object({id: z.string()}))
+        .input(z.object({ id: z.string() }))
         .query(({ input, ctx }) => {
-            return  ctx.prisma.forecast.findUnique({
+            return ctx.prisma.forecast.findUnique({
                 where: {
                     id: input.id
                 },
             });
         }),
     getByNumber: publicProcedure
-        .input(z.object({number: z.string()}))
+        .input(z.object({ number: z.string() }))
         .query(({ input, ctx }) => {
-            return  ctx.prisma.forecast.findUnique({
+            return ctx.prisma.forecast.findUnique({
                 where: {
                     number: input.number
                 },
@@ -123,7 +182,7 @@ export const forecastRouter = createTRPCRouter({
         }),
     getAll: publicProcedure
         .query(({ ctx }) => {
-            return  ctx.prisma.forecast.findMany();
+            return ctx.prisma.forecast.findMany();
         }),
 });
 
