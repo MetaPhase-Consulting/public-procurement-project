@@ -44,84 +44,66 @@ export const forecastRouter = createTRPCRouter({
             const props = Object.getOwnPropertyNames(input.filter);
             const enabledFilters = props.filter(prop => (<any[]>input.filter[prop as keyof typeof input.filter]).length > 0)
 
-            /*
-            let mf: any;
-
-            enabledFilters.forEach(enabledFilter => {
-                if (!!!mf) mf = { $match: {} };
-                mf.$match = input.filter[enabledFilter as keyof typeof input.filter]
-            })
-            */
-
             const filters = enabledFilters.map(filter => {
                 const filterValues = (<any[]>input.filter[filter as keyof typeof input.filter]);
-                const mongoFilter = filterValues.map(fv => {
-                    return { $eq: [`$${filter}`, fv] }
+                const literalFilters = filterValues.map(fv => {
+
+                    return { $eq: [`$${filter}`, { $literal: fv[filter].equals }] }
                 });
-                return { $expr: { $or: filterValues } };
+                return { $expr: { $or: literalFilters } };
             });
 
             const match = filters.length > 0 ? { $and: filters } : {};
 
-            console.log(JSON.stringify(match));
+//            console.log("match: " + JSON.stringify(match));
+
+            const facets: any = {};
+            props.forEach(filterName => {
+                facets[filterName as keyof typeof facets] = [
+                    {
+                        $group: {
+                            _id: `$${filterName}`,
+                            count: {
+                                $sum: 1,
+                            },
+                        }
+                    },
+                    {
+                        $sort: {
+                            _id: 1,
+                        }
+                    }                                        
+                ]
+            });
+
+            facets.resultData = [
+                {
+                    $limit: 3,
+                },
+                {
+                    $skip: (input.page - 1) * 3,
+                },
+                {
+                    $sort: {
+                        number: -1,
+                    },
+                },
+            ];
+
+            facets.pageInfo = [
+                {
+                    $count: "totalRecords",
+                },
+            ];
 
             const retVal = ctx.prisma.forecast.aggregateRaw({
                 pipeline: [
-                        {
-                            $match: match
-                        },
-                        {
-                            $facet: {
-                                places_of_performance: [
-                                    {
-                                        $group: {
-                                            _id: "$place_of_performance",
-                                            count: {
-                                                $sum: 1,
-                                            },
-                                        },
-                                    },
-                                    {
-                                        $sort: {
-                                            _id: 1,
-                                        },
-                                    },
-                                ],
-                                new_requirements: [
-                                    {
-                                        $group: {
-                                            _id: "$new_requirement",
-                                            count: {
-                                                $sum: 1,
-                                            },
-                                        },
-                                    },
-                                    {
-                                        $sort: {
-                                            _id: 1,
-                                        },
-                                    },
-                                ],
-                                resultData: [
-                                    {
-                                        $limit: 3,
-                                    },
-                                    {
-                                        $skip: 0,
-                                    },
-                                    {
-                                        $sort: {
-                                            number: 1,
-                                        },
-                                    },
-                                ],
-                                pageInfo: [
-                                    {
-                                        $count: "totalRecords",
-                                    },
-                                ],
-                            },
-                        }
+                    {
+                        $match: match
+                    },
+                    {
+                        $facet: facets
+                    }
                 ]
             });
             return retVal;
