@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@trussworks/react-uswds/lib/index.css';
+@import './preflight.css';
+
+// =================== THEME ===================
+
+@import './theme/fonts.scss';
+@import './theme/dos.css';
+@import './theme/dos-overrides.css';
+@import './theme/uswds-overrides.css';
+
+
+// =================== PAGES ===================
+
+@import './pages/Homepage.scss';
+@import './pages/ForecastList.scss';
+@import './pages/ForecastDetail.scss';
+
+
+// =================== COMPONENTS ===================
+
+@import './components/Layout.scss';
+@import './components/Forecast.scss';

@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './GlanceId.module.css';
 
 interface Props {
     value: React.ReactNode;
@@ -8,11 +7,11 @@ interface Props {
 
 const GlanceId: React.FC<Props> = (props) => {
     return (
-        <div className={[classes.GlanceIdWrapper, classes[props.children ? 'Inline' : '']].join(' ')}>
-            <span className={classes[props.children ? 'PrefixContent' : '']}>
+        <div className={'glance-id ' + (props.children ? 'Inline' : '')}>
+            <span className={props.children ? 'prefix-content' : ''}>
                 {props.children}
             </span>
-            <span className={classes.GlanceIdInner}>
+            <span>
                 {props.value}
             </span>
         </div>

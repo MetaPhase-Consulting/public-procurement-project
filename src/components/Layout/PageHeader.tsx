@@ -1,7 +1,6 @@
 import React from 'react';
-import Breadcrumbs from '../../components/Layout/Breadcrumbs';
-import type { Breadcrumb } from '../../components/Layout/Breadcrumbs';
-// import classes from './PageHeader.module.css';
+import Breadcrumbs from './Breadcrumbs';
+import type { Breadcrumb } from './Breadcrumbs';
 
 interface Props {
     breadcrumbs: Breadcrumb[];

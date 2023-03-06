@@ -9,6 +9,7 @@ interface Props {
     children: React.ReactNode;
     title?: string;
     darkHeader?: boolean;
+    className?: string;
 }
 
 /**
@@ -19,7 +20,7 @@ interface Props {
  * and the standard footer.
  */
 const Layout: React.FC<Props> = props => {
-    const { children, title } = props;
+    const { children, title, className } = props;
 
     // Ensure minimum height of body is the full window height minus the header and footer
     return (
@@ -30,7 +31,7 @@ const Layout: React.FC<Props> = props => {
             <main>
                 <GovBanner />
                 <Header dark={props.darkHeader}/>
-                <div style={{ minHeight: 'calc(100vh - 500px)', height: '100%' }} className="w-full">
+                <div style={{ minHeight: 'calc(100vh - 500px)', height: '100%' }} className={className + " w-full"}>
                     {children}
                 </div>
                 <Footer />
