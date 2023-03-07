@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './SubNavigation.module.css';
 
 interface Props {
     light?: boolean;
@@ -25,7 +24,7 @@ const SubNavigation: React.FC<Props> = props => {
 
     return (
         <>
-            <section className={['module module--page-subnavigation page-subnavigation', props.addMargin ? classes.AddMargin : ''].join(' ')} data-component="pagesubnav">
+            <section className={['module module--page-subnavigation page-subnavigation', props.addMargin ? 'add-margin' : ''].join(' ')} data-component="pagesubnav">
                 <nav className="page-subnavigation__menu frame">
                     <ul id="menu-bureau-of-intelligence-and-research" className="menu">
                         {items && items.map((item, index) => {

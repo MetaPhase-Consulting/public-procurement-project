@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Breadcrumb, BreadcrumbBar, BreadcrumbLink } from '@trussworks/react-uswds';
-// import classes from './Breadcrumbs.module.css';
 
 export type Breadcrumb = {
     label: string,

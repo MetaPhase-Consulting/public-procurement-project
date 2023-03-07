@@ -7,14 +7,14 @@ import { api } from '../../utils/api';
 import { convertNumber, convertDuration, convertQuarter, convertDate } from '../../utils/utils';
 
 import Layout from '../../components/Layout/Layout';
-import GlanceField from '../../components/ForecastList/Card/GlanceField/GlanceField';
-import GlanceId from '../../components/ForecastList/Card/GlanceId/GlanceId';
-import RequirementTag from '../../components/ForecastList/Card/RequirementTag/RequirementTag';
-import LabelValue from '../../components/ForecastList/Card/LabelValue/LabelValue';
+import GlanceField from '../../components/Forecast/ForecastInfo/GlanceField';
+import GlanceId from '../../components/Forecast/ForecastInfo/GlanceId';
+import RequirementTag from '../../components/Forecast/ForecastInfo/RequirementTag';
+import LabelValue from '../../components/Forecast/ForecastInfo/LabelValue';
 import SubNavigation from '../../components/Layout/SubNavigation';
 import NotFound from '../../components/Layout/NotFound';
-import InfoBox from '../../components/ForecastList/Card/InfoBox/InfoBox';
-import PageHeader from '../../components/PageHeader/PageHeader';
+import InfoBox from '../../components/Forecast/ForecastInfo/InfoBox';
+import PageHeader from '../../components/Layout/PageHeader';
 
 const Forecast: NextPage = () => {
 
@@ -91,12 +91,12 @@ const Forecast: NextPage = () => {
                                 <div className="flex-grow">
                                     <InfoBox label="Contact Information">
                                         <LabelValue label="Point of contact name" value={data.poc_name ?? ''} reverse />
-                                        <LabelValue label="Point of contact email" value={data.poc_email ?? ''} nomargin reverse />
+                                        <LabelValue label="Point of contact email" value={data.poc_email ?? ''} noMargin reverse />
                                     </InfoBox>
                                 </div>
                                 <div className="flex-grow">
                                     <InfoBox label="Contract Information">
-                                        <LabelValue label="Incumbent Contractor" value={data.incumbent_contractor ?? ''} nomargin reverse />
+                                        <LabelValue label="Incumbent Contractor" value={data.incumbent_contractor ?? ''} noMargin reverse />
                                     </InfoBox>
                                 </div>
                             </div>

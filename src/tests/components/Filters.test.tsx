@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Filters from '../../components/ForecastList/Filters/Filters';
+import Filters from '../../components/Forecast/Filters/Filters';
 
 
 describe('Filters Component', () => {

@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './RequirementTag.module.css';
 
 interface Props {
     value: string;
@@ -7,8 +6,8 @@ interface Props {
 
 const RequirementTag: React.FC<Props> = (props) => {
     return (
-        <div className={[classes.RequirementTagWrapper, classes[props.value ? props.value : 'Default']].join(' ')}>
-            <span className={classes.RequirementTagInner}>
+        <div className={'requirement-tag ' + (props.value == 'Recompete' ? 'white' : '')}>
+            <span className='inner'>
                 {props.value}
             </span>
         </div>
