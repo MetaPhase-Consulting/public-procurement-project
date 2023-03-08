@@ -30,12 +30,12 @@
         .left {
             margin-right: -40px;
 
-            .left-top-content {
+            .left-top {
                 display: flex;
             }
 
             @media (max-width: 70em) {
-                .left-top-content {
+                .left-top {
                     flex-direction: column;
                 }
             }
@@ -54,7 +54,7 @@
         }
     }
 
-    .footer {
+    .card-footer {
         margin-top: 10px;
 
         .updated-timestamp {

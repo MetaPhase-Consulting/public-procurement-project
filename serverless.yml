@@ -1,0 +1,39 @@
+service: aws-node-http-api-ppp
+frameworkVersion: '3'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  apiGateway:
+    shouldStartNameWithService: true
+    binaryMediaTypes:
+      - "*/*"
+
+functions:
+  api:
+    handler: .next/server/pages/api/trpc/[trpc].awsHandler
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
+
+package:
+  patterns:
+    - '.next'
+    - 'public'
+    - 'next.config.mjs'
+    - 'package.json'
+ 
+plugins:
+  - serverless-plugin-common-excludes # this should go before serverless-plugin-include-dependencies
+  - serverless-plugin-include-dependencies
+  - serverless-esbuild
+  - serverless-dotenv-plugin
+ 
+custom:
+  esbuild:
+    bundle: true
+    minify: true
+    exclude: '*'
+    external:
+      - 'next'

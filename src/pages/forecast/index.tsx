@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { type NextPage } from 'next';
 
 import { CardGroup, Grid, GridContainer, Pagination, Search } from '@trussworks/react-uswds';
 
+import { Forecast } from '../../utils/types';
 import { api } from '../../utils/api';
 import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/Forecast/Filters/Filters';
@@ -139,7 +140,6 @@ const ForecastList: NextPage = () => {
     const renderChips = () => {
         const chips = []
         for (const [key, value] of Object.entries(filters)) {
-            console.log(key)
             for (const v of value) {
                 chips.push(
                     <FilterChip
@@ -149,8 +149,6 @@ const ForecastList: NextPage = () => {
                 )
             }
         }
-
-
 
         return chips.length > 0 && (
             <div className='flex flex-row justify-between'>
@@ -175,15 +173,22 @@ const ForecastList: NextPage = () => {
     const input = {
         search: searchQuery,
         filter: convert(filters),
-        sort: { number: 'desc' },
+        sort: { number: -1 },
         page: page
     }
-    const total = api.forecast.getTotalResults.useQuery(input).data;
-    const { data } = api.forecast.getForecasts.useQuery(input);
+//    const gc = api.forecast.getForecasts.useQuery(input);
+    const aggregate = api.forecast.getForecastsAggregate.useQuery(input);
+    const data = aggregate.data ? (aggregate.data[0] as any).resultData : [];
+    const pageInfo = aggregate.data && (aggregate.data[0] as any).pageInfo;
+    const total = pageInfo ? (pageInfo[0] ? pageInfo[0].totalRecords : 0) : 0;
+
+    console.log(JSON.stringify(aggregate));
 
     React.useEffect(() => {
         if (total) {
             const lastPage = Math.ceil(total / 3);
+            // If current page is greater than the total number of pages available
+            // navigate to last most available page
             if (page > lastPage) {
                 setPage(lastPage);
             }
@@ -214,7 +219,7 @@ const ForecastList: NextPage = () => {
                                 <Search
                                     size="small"
                                     placeholder="Search..."
-                                    onSubmit={(event) => { setSearchQuery(event.toString()) }}
+                                    onSubmit={(event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSearchQuery((event.currentTarget.elements.namedItem('search') as HTMLInputElement).value); }}
                                 />
                             </div>
                             <div className="py-3 border-b border-gray-400 mb-1">
@@ -225,7 +230,7 @@ const ForecastList: NextPage = () => {
                             {(total && total > 0) ?
                                 <>
                                     <CardGroup className="flex flex-col w-full m-0 mt-6">
-                                        {data && data.map(forecast => {
+                                        {data && data.map((forecast: Forecast) => {
                                             return (
                                                 <ListingCard key={forecast.number} data={forecast} />
                                             )

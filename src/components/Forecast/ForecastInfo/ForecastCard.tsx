@@ -16,7 +16,7 @@ const ListingCard: React.FC<Props> = (props) => {
 
     const { data } = props;
 
-    const updated = data.updated ? convertDate(data.updated, true) : '';
+    const updated = data.updated ? convertDate(new Date(data.updated.$date), true) : '';
 
     const truncateTitle = (title?: string | null) => {
         if (title) {
@@ -66,7 +66,7 @@ const ListingCard: React.FC<Props> = (props) => {
                     </div>
                 </div>
             </div>
-            {updated && <div className='footer'>
+            {updated && <div className='card-footer'>
                 <div className='updated-timestamp'>
                     <>Record updated {updated}</>
                 </div>
