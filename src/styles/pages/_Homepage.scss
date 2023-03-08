@@ -1,0 +1,182 @@
+.homepage {
+
+    // =========== General ===========
+
+
+    .star {
+        margin: 0px 4px;
+        color: #C1A783;
+        height: 14px;
+        width: 14px;
+    }
+
+    .message-heading {
+        font-size: 1.6rem;
+        line-height: 1.8rem;
+        max-width: 500px;
+        padding-bottom: 20px;
+    }
+
+    .message-content {
+        line-height: 1.25rem;
+    }
+
+
+    // =========== Browse CTA ===========
+
+    .browse-cta {
+        border-radius: 20px;
+        border: 1px solid #C1A883;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 10px 40px;
+        padding: 15px;
+
+        .browse-cta-label {
+            font-size: 32px;
+            padding: 15px 0px 0px;
+            font-family: EB Garamond, Times, Serif;
+            text-align: center;
+        }
+
+        .browse-cta-icon {
+            height: 120x;
+            width: 120px;
+        }
+    }
+
+
+
+    // =========== Featured Opportunities ===========
+
+    .featured-widget {
+        padding: 40px 50px;
+        background: url(https://www.state.gov/wp-content/themes/state/images/wavy-bg.jpg) repeat;
+
+        .widget-heading {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            padding: 10px 0px 15px;
+            font-family: EB Garamond, Times, Serif;
+            letter-spacing: 0.225em;
+            font-weight: 500;
+        }
+
+        .widget-underline {
+            width: 100px;
+            border: 1px solid #C1A783;
+        }
+
+        .widget-content {
+            padding-top: 20px;
+        }
+
+        .widget-item {
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            border: 1px #7C8791 solid;
+            margin: 20px 0px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .item-date {
+            font-size: 0.8rem;
+            color: #838181;
+            padding-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .item-title {
+            font-size: 1.7rem;
+            line-height: 1.75rem;
+            font-weight: 600;
+            color: #49729F;
+            font-family: EB Garamond, Times, Serif;
+        }
+    }
+
+    // =========== Announcements ===========
+
+    .announcement-widget {
+        .widget-heading {
+            font-size: 2.75rem;
+            padding: 5px 0px 15px;
+            font-family: EB Garamond, Times, Serif;
+        }
+
+        .widget-item {
+            display: flex;
+            flex-direction: column;
+            margin: 50px 0px;
+        }
+
+        .item-date {
+            font-size: 0.8rem;
+            color: #838181;
+            padding-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .item-title {
+            font-size: 1.7rem;
+            line-height: 1.75rem;
+            font-weight: 600;
+            color: #49729F;
+            font-family: EB Garamond, Times, Serif;
+        }
+    }
+
+
+    // =========== Highlight Message ===========
+
+
+    .highlight-photo {
+        height: 80px;
+        width: 80px;
+        background-color: #D9D9D9;
+        border-radius: 500px;
+        margin-right: 20px;
+        background-image: url(../../media/mike-derrios.png);
+        background-size: contain;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 80px;
+    }
+
+    .highlight-role {
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #838181;
+        letter-spacing: 0.125rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .highlight-author {
+        font-size: 1.7rem;
+        font-family: EB Garamond, Times, Serif;
+    }
+
+
+
+    // =========== Other ===========
+
+
+    .featured-links {
+        background-color: #0F304C;
+        height: 200px;
+        color: white;
+        display: flex;
+        align-items: center;
+        padding: 50px;
+    }
+}

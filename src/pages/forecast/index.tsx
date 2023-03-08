@@ -1,18 +1,16 @@
 import React from 'react';
 import { type NextPage } from 'next';
 
-import { CardGroup, Grid, GridContainer, Pagination } from '@trussworks/react-uswds';
+import { CardGroup, Grid, GridContainer, Pagination, Search } from '@trussworks/react-uswds';
 
+import { Forecast } from '../../utils/types';
 import { api } from '../../utils/api';
 import Layout from '../../components/Layout/Layout';
-import Filters from '../../components/ForecastList/Filters/Filters';
-import ListingCard from '../../components/ForecastList/Card/ListingCard/ListingCard';
+import Filters from '../../components/Forecast/Filters/Filters';
+import ListingCard from '../../components/Forecast/ForecastInfo/ForecastCard';
 import SubNavigation from '../../components/Layout/SubNavigation';
-import PageHeader from '../../components/PageHeader/PageHeader';
-
-import classes from '../../components/ForecastList/ForecastList.module.css';
-import FilterChip from '../../components/ForecastList/FilterChip';
-import { Forecast } from '../../utils/types';
+import PageHeader from '../../components/Layout/PageHeader';
+import FilterChip from '../../components/Forecast/Filters/FilterChip';
 
 type FilterState = {
     new_requirement: string[],
@@ -155,7 +153,7 @@ const ForecastList: NextPage = () => {
         return chips.length > 0 && (
             <div className='flex flex-row justify-between'>
                 <div className='flex flex-row  items-center '>
-                    <span className={classes.ChipsHeading}>Filtering By</span>
+                    <span className='chips-heading'>Filtering By</span>
                     <div className='flex flex-row  py-2 flex-wrap'>
                         {chips}
                     </div>
@@ -214,13 +212,13 @@ const ForecastList: NextPage = () => {
                             </div>
                         </Grid>
                         <Grid tablet={{ col: 6 }} desktop={{ col: 9 }}>
-                            {/* <div className="flex justify-end">
+                            <div className="flex justify-end">
                                 <Search
                                     size="small"
                                     placeholder="Search..."
                                     onSubmit={(event) => { setSearchQuery(event.toString()) }}
                                 />
-                            </div> */}
+                            </div>
                             <div className="py-3 border-b border-gray-400 mb-1">
                                 <span className='font-semibold'>{total}</span>
                                 <span> Results</span>

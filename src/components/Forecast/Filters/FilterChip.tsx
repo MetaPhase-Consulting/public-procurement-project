@@ -1,5 +1,4 @@
 import * as React from 'react';
-import classes from './FilterChip.module.css'
 
 interface Props {
     text: string;
@@ -17,9 +16,9 @@ const FilterChip: React.FC<Props> = (props) => {
     const { text, handleDelete } = props;
 
     return (
-        <div className={classes.Chip}>
+        <div className='filter-chip'>
             {text}
-            <div className={classes.Delete} onClick={handleDelete} />
+            <div className='delete-button' onClick={handleDelete} />
         </div>
     );
 }

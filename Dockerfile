@@ -2,8 +2,8 @@
 FROM node:18-alpine
 
 # Set the database URL as a build argument
-ARG DATABASE_URL
-ENV DATABASE_URL=$DATABASE_URL
+ARG build_database_url
+ENV DATABASE_URL $build_database_url
 
 # Set the working directory in the container
 WORKDIR /app

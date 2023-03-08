@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './InfoBox.module.css';
 
 interface Props {
     label: string;
@@ -8,11 +7,11 @@ interface Props {
 
 const InfoBox: React.FC<Props> = (props) => {
     return (
-        <div className={classes.InfoBoxWrapper}>
-            <span className={classes.Label}>
+        <div className='info-box'>
+            <span className='label'>
                 {props.label}
             </span>
-            <span className={classes.ContentWrapper}>
+            <span className='content'>
                 {props.children}
             </span>
         </div>

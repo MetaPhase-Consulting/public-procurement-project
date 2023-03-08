@@ -1,21 +1,20 @@
 import React from 'react';
-import classes from './LabelValue.module.css';
 
 interface Props {
     label: string;
     value: string | number;
     inline?: boolean;
-    nomargin?: boolean;
+    noMargin?: boolean;
     reverse?: boolean;
 }
 
 const LabelValue: React.FC<Props> = (props) => {
     return (
-        <div className={[classes.LabelDataWrapper, props.inline ? classes.Inline : '', props.nomargin ? classes.NoMargin : '', props.reverse ? classes.Reverse : ''].join(' ')}>
-            <span className={classes.Label}>
+        <div className={'label-value ' + (props.inline ? 'inline ' : '') + (props.noMargin ? 'no-margin ' : '') + (props.reverse ? 'reverse' : '')}>
+            <span className='label'>
                 {props.label}
             </span>
-            <span className={classes.Value}>
+            <span className='value'>
                 {props.value}
             </span>
         </div>
