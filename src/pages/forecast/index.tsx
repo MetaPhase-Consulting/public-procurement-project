@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { type NextPage } from 'next';
 
 import { CardGroup, Grid, GridContainer, Pagination, Search } from '@trussworks/react-uswds';
@@ -176,10 +176,13 @@ const ForecastList: NextPage = () => {
         sort: { number: -1 },
         page: page
     }
+//    const gc = api.forecast.getForecasts.useQuery(input);
     const aggregate = api.forecast.getForecastsAggregate.useQuery(input);
     const data = aggregate.data ? (aggregate.data[0] as any).resultData : [];
     const pageInfo = aggregate.data && (aggregate.data[0] as any).pageInfo;
     const total = pageInfo ? (pageInfo[0] ? pageInfo[0].totalRecords : 0) : 0;
+
+    console.log(JSON.stringify(aggregate));
 
     React.useEffect(() => {
         if (total) {
@@ -216,7 +219,7 @@ const ForecastList: NextPage = () => {
                                 <Search
                                     size="small"
                                     placeholder="Search..."
-                                    onSubmit={(event) => { setSearchQuery(event.toString()) }}
+                                    onSubmit={(event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSearchQuery((event.currentTarget.elements.namedItem('search') as HTMLInputElement).value); }}
                                 />
                             </div>
                             <div className="py-3 border-b border-gray-400 mb-1">

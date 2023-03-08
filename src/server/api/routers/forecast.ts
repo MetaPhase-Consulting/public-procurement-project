@@ -55,7 +55,7 @@ export const forecastRouter = createTRPCRouter({
 
             const match = filters.length > 0 ? { $and: filters } : {};
 
-            // console.log('match: ' + JSON.stringify(match));
+            console.log('match: ' + JSON.stringify(match));
 
             const facets: any = {};
             props.forEach(filterName => {
@@ -64,8 +64,8 @@ export const forecastRouter = createTRPCRouter({
                         _id: `$${filterName}`,
                         count: { $sum: 1 },
                     }
-                },{
-                    $sort: { _id: 1}
+                }, {
+                    $sort: { _id: 1 }
                 }]
             });
 
@@ -74,20 +74,38 @@ export const forecastRouter = createTRPCRouter({
             }, {
                 $skip: (input.page - 1) * 3,
             }, {
-                $sort: input.sort 
+                $sort: input.sort
             }];
 
             facets.pageInfo = [{
                 $count: 'totalRecords',
             }];
 
-            const retVal = ctx.prisma.forecast.aggregateRaw({
-                pipeline: [{
-                    $match: match
-                }, {
-                    $facet: facets
-                }]
-            });
+            const pipeline = [];
+
+            const searchText = (input.search || '').trim();
+
+            if (searchText.length > 0) {
+                const search = {
+                    index: 'search_index',
+                    text: {
+                      query: searchText,
+                      path: {
+                        wildcard: '*'
+                      }
+                    }
+                  };
+                pipeline.push({ $search: search });
+            }
+
+            pipeline.push({ $match: match });
+            pipeline.push({ $facet: facets });
+
+            console.log(JSON.stringify(pipeline));
+
+            const aggregate = { pipeline: pipeline };
+
+            const retVal = ctx.prisma.forecast.aggregateRaw(aggregate);
             return retVal;
 
         }),
