@@ -17,7 +17,7 @@ const ListingCard: React.FC<Props> = (props) => {
 
     const { data } = props;
 
-    const updated = data.updated ? convertDate(data.updated, true) : '';
+    const updated = data.updated ? convertDate(new Date(data.updated.$date), true) : '';
 
     const truncateTitle = (title?: string | null) => {
         if (title) {

@@ -41,13 +41,13 @@ export const forecastRouter = createTRPCRouter({
     getForecastsAggregate: publicProcedure
         .input(listInput)
         .query(({ input, ctx }) => {
+
             const props = Object.getOwnPropertyNames(input.filter);
             const enabledFilters = props.filter(prop => (<any[]>input.filter[prop as keyof typeof input.filter]).length > 0)
 
             const filters = enabledFilters.map(filter => {
                 const filterValues = (<any[]>input.filter[filter as keyof typeof input.filter]);
                 const literalFilters = filterValues.map(fv => {
-
                     return { $eq: [`$${filter}`, { $literal: fv[filter].equals }] }
                 });
                 return { $expr: { $or: literalFilters } };
@@ -55,58 +55,41 @@ export const forecastRouter = createTRPCRouter({
 
             const match = filters.length > 0 ? { $and: filters } : {};
 
-//            console.log("match: " + JSON.stringify(match));
+            // console.log('match: ' + JSON.stringify(match));
 
             const facets: any = {};
             props.forEach(filterName => {
-                facets[filterName as keyof typeof facets] = [
-                    {
-                        $group: {
-                            _id: `$${filterName}`,
-                            count: {
-                                $sum: 1,
-                            },
-                        }
-                    },
-                    {
-                        $sort: {
-                            _id: 1,
-                        }
-                    }                                        
-                ]
+                facets[filterName as keyof typeof facets] = [{
+                    $group: {
+                        _id: `$${filterName}`,
+                        count: { $sum: 1 },
+                    }
+                },{
+                    $sort: { _id: 1}
+                }]
             });
 
-            facets.resultData = [
-                {
-                    $limit: 3,
-                },
-                {
-                    $skip: (input.page - 1) * 3,
-                },
-                {
-                    $sort: {
-                        number: -1,
-                    },
-                },
-            ];
+            facets.resultData = [{
+                $limit: 3,
+            }, {
+                $skip: (input.page - 1) * 3,
+            }, {
+                $sort: input.sort 
+            }];
 
-            facets.pageInfo = [
-                {
-                    $count: "totalRecords",
-                },
-            ];
+            facets.pageInfo = [{
+                $count: 'totalRecords',
+            }];
 
             const retVal = ctx.prisma.forecast.aggregateRaw({
-                pipeline: [
-                    {
-                        $match: match
-                    },
-                    {
-                        $facet: facets
-                    }
-                ]
+                pipeline: [{
+                    $match: match
+                }, {
+                    $facet: facets
+                }]
             });
             return retVal;
+
         }),
     getForecasts: publicProcedure
         .input(listInput)
