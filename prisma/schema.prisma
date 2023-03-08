@@ -103,4 +103,6 @@ model Forecast {
     security_clearance String?
     past_set_aside String?
     anticipated_set_aside String?
+
+    @@map("forecast")
 }
