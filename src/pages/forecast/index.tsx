@@ -11,6 +11,7 @@ import ListingCard from '../../components/Forecast/ForecastInfo/ForecastCard';
 import SubNavigation from '../../components/Layout/SubNavigation';
 import PageHeader from '../../components/Layout/PageHeader';
 import FilterChip from '../../components/Forecast/Filters/FilterChip';
+import { SearchResult } from '../../components/Search/Facet';
 
 type FilterState = {
     new_requirement: string[],
@@ -176,11 +177,12 @@ const ForecastList: NextPage = () => {
         sort: { number: -1 },
         page: page
     }
-//    const gc = api.forecast.getForecasts.useQuery(input);
+
     const aggregate = api.forecast.getForecastsAggregate.useQuery(input);
-    const data = aggregate.data ? (aggregate.data[0] as any).resultData : [];
-    const pageInfo = aggregate.data && (aggregate.data[0] as any).pageInfo;
-    const total = pageInfo ? (pageInfo[0] ? pageInfo[0].totalRecords : 0) : 0;
+    const aggregateData =  aggregate.data as SearchResult || {};
+    const data = aggregateData.documents;
+    const total = aggregateData.record_count;
+    const facetCategories = aggregateData.facet_categories || [];
 
     console.log(JSON.stringify(aggregate));
 
@@ -208,6 +210,7 @@ const ForecastList: NextPage = () => {
                         <Grid tablet={{ col: 6 }} desktop={{ col: 3 }}>
                             <div className='pr-8'>
                                 <Filters
+                                    facetCategories={facetCategories}
                                     updateFilters={updateFilters}
                                     getFilterIndex={getFilterIndex}
                                     clearFilters={clearFilters}

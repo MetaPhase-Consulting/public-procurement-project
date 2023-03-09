@@ -1,5 +1,7 @@
 // import { Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
+import { Facet, FacetCategory, FACET_SEARCH_CATEGORIES, SearchResult } from '../../../components/Search/Facet';
 import { createTRPCRouter, publicProcedure } from '../trpc';
 
 
@@ -42,6 +44,7 @@ export const forecastRouter = createTRPCRouter({
         .input(listInput)
         .query(({ input, ctx }) => {
 
+            const facetCategoryNames = FACET_SEARCH_CATEGORIES.map(f => f.name);
             const props = Object.getOwnPropertyNames(input.filter);
             const enabledFilters = props.filter(prop => (<any[]>input.filter[prop as keyof typeof input.filter]).length > 0)
 
@@ -58,20 +61,19 @@ export const forecastRouter = createTRPCRouter({
             console.log('match: ' + JSON.stringify(match));
 
             const facets: any = {};
-            props.forEach(filterName => {
-                facets[filterName as keyof typeof facets] = [{
+            FACET_SEARCH_CATEGORIES.forEach(facetCategory => {
+                facets[facetCategory.name as keyof typeof facets] = [{
                     $group: {
-                        _id: `$${filterName}`,
+                        _id: `$${facetCategory.name}`,
                         count: { $sum: 1 },
-                    }
-                }, {
-                    $sort: { _id: 1 }
+                    },
                 }]
+                facetCategory.sort ? facetCategory.sort(facets[facetCategory.name]) : facets[facetCategory.name].push({ $sort: { _id: 1 } });
             });
 
             const skip = (input.page - 1) * 3;
 
-            facets.resultData = [ {
+            facets.documents = [ {
                 $skip: skip,
             }, {
                 $limit: 3,
@@ -79,8 +81,8 @@ export const forecastRouter = createTRPCRouter({
                 $sort: input.sort
             }];
 
-            facets.pageInfo = [{
-                $count: 'totalRecords',
+            facets.metadata = [{
+                $count: 'total_records',
             }];
 
             const pipeline = [];
@@ -108,7 +110,31 @@ export const forecastRouter = createTRPCRouter({
             const aggregate = { pipeline: pipeline };
 
             const retVal = ctx.prisma.forecast.aggregateRaw(aggregate);
-            return retVal;
+
+            const searchResult = retVal.then((rec: Prisma.JsonObject) => {
+                const r = rec[0] as any;
+                const documents = r.documents;
+                const record_count = (<any[]>r.metadata)[0].total_records;
+                const facet_categories: FacetCategory[] = FACET_SEARCH_CATEGORIES.map(facetCategory => {
+                    const fc: FacetCategory = {
+                        name: facetCategory.name,
+                        label: facetCategory.label,
+                        facets: (<any[]>r[facetCategory.name]).map(facet => {
+                            return {
+                                label: facet._id,
+                                doc_count: facet.count
+                            };
+                        })
+                    };
+                    return fc;
+                });
+                return {
+                    documents: documents as any[],
+                    record_count: record_count as number,
+                    facet_categories: facet_categories
+                } as SearchResult;
+            });
+            return searchResult;
 
         }),
     getForecasts: publicProcedure
