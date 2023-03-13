@@ -1,8 +1,8 @@
-// import { Prisma } from '@prisma/client';
-import { Prisma } from '@prisma/client';
-import { z } from 'zod';
-import { Facet, FacetCategory, FACET_SEARCH_CATEGORIES, SearchResult } from '../../../components/Search/Facet';
+import type { Prisma } from '@prisma/client';
 import { createTRPCRouter, publicProcedure } from '../trpc';
+import { z } from 'zod';
+import { FACET_SEARCH_CATEGORIES } from '../../../components/Search/Facet';
+import type { FacetCategory, SearchResult } from '../../../components/Search/Facet';
 
 
 // ============= SUPPORTING FUNCTIONS/TYPES =============
