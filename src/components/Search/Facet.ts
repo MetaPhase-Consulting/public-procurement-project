@@ -17,26 +17,22 @@ export interface SearchResult {
     facet_categories: FacetCategory[];
 }
 
-export const FACET_SEARCH_CATEGORIES: FacetCategory[] = [
-    {
-        name: 'new_requirement',
-        label: 'New Requirement'
-    },
-    {
-        name: 'estimated_value',
-        label: 'Estimated Value',
-        sort: (facet: any[]) => {
-            const a = { '$addFields' : { '__order' : { '$indexOfArray' : [ ESTIMATED_VALUE_ORDER, '$_id' ] } } };
-            const s = { '$sort' : { '__order' : 1 } };
-            facet.push(a);
-            facet.push(s);
-        }
-    },
-    {
-        name: 'past_set_aside',
-        label: 'Past Set Aside'
+export const FACET_SEARCH_CATEGORIES: FacetCategory[] = [{
+    name: 'new_requirement',
+    label: 'New Requirement'
+}, {
+    name: 'estimated_value',
+    label: 'Estimated Value',
+    sort: (facet: any[]) => {
+        const a = { '$addFields' : { '__order' : { '$indexOfArray' : [ ESTIMATED_VALUE_ORDER, '$_id' ] } } };
+        const s = { '$sort' : { '__order' : 1 } };
+        facet.push(a);
+        facet.push(s);
     }
-];
+}, {
+    name: 'past_set_aside',
+    label: 'Past Set Aside'
+}];
 
 const ESTIMATED_VALUE_ORDER: any[] = [
     { $literal: '$250k-500K' },

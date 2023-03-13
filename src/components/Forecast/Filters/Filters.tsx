@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Accordion, Checkbox } from '@trussworks/react-uswds';
-import type { FilterSection } from './FilterSections';
-import { newRequirement, estimatedValue, pastSetAside } from './FilterSections';
-import { Facet, FacetCategory } from '../../Search/Facet';
+import type { Facet, FacetCategory } from '../../Search/Facet';
 
 interface Props {
     facetCategories: FacetCategory[];
@@ -21,7 +19,7 @@ interface Props {
 const Filters: React.FC<Props> = (props) => {
     const { facetCategories, updateFilters, getFilterIndex, clearFilters } = props;
 
-    const createCheckboxes = (facets: Facet[]) => {
+    const createCheckboxes = (facets: Facet[], field: string) => {
         return (
             <div className='-mx-2'>
                 {facets.map((o, i) => {
@@ -32,8 +30,8 @@ const Filters: React.FC<Props> = (props) => {
                             name={o.label}
                             label={`${o.label} (${o.doc_count})`}
                             className={i == 0 ? '-mt-4 checkbox-label' : 'checkbox-label'}
-                            onChange={(event) => updateFilters(o.label, o.label, event)}
-                            checked={getFilterIndex(o.label, o.label) > -1}
+                            onChange={(event) => updateFilters(field, o.label, event)}
+                            checked={getFilterIndex(field, o.label) > -1}
                         />
                     )
                 })}
@@ -58,16 +56,17 @@ const Filters: React.FC<Props> = (props) => {
                 <Accordion
                     className='filter-accordion'
                     multiselectable={true}
-                    items={ facetCategories.map(fc => {
+                    items={facetCategories.map(fc => {
+                        console.log(fc)
                         return {
                             id: fc.name,
                             title: fc.label,
-                            content: createCheckboxes(fc.facets || []),
+                            content: createCheckboxes(fc.facets || [], fc.name || ''),
                             expanded: true,
                             headingLevel: 'h6'
                         }
-                      }) }
-                    />
+                    })}
+                />
             </div>
         </div>
     );

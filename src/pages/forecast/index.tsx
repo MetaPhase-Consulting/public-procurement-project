@@ -1,17 +1,18 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
+import type { FormEvent } from 'react';
 import { type NextPage } from 'next';
 
 import { CardGroup, Grid, GridContainer, Pagination, Search } from '@trussworks/react-uswds';
 
-import { Forecast } from '../../utils/types';
 import { api } from '../../utils/api';
+import type { Forecast } from '../../utils/types';
 import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/Forecast/Filters/Filters';
 import ListingCard from '../../components/Forecast/ForecastInfo/ForecastCard';
 import SubNavigation from '../../components/Layout/SubNavigation';
 import PageHeader from '../../components/Layout/PageHeader';
 import FilterChip from '../../components/Forecast/Filters/FilterChip';
-import { SearchResult } from '../../components/Search/Facet';
+import type { SearchResult } from '../../components/Search/Facet';
 
 type FilterState = {
     new_requirement: string[],
@@ -87,6 +88,8 @@ const ForecastList: NextPage = () => {
      * helps make sure filters are being removed or added in the proper location.
      */
     const updateFilters = (field: string, value: string, event?: React.ChangeEvent<HTMLInputElement>, remove?: boolean) => {
+        console.log(filters)
+        console.log(field)
         let newFilters = filters;
         if (filters.hasOwnProperty(field)) {
             const f: any = filters;
@@ -179,12 +182,12 @@ const ForecastList: NextPage = () => {
     }
 
     const aggregate = api.forecast.getForecastsAggregate.useQuery(input);
-    const aggregateData =  aggregate.data as SearchResult || {};
+    const aggregateData = aggregate.data as SearchResult || {};
     const data = aggregateData.documents;
     const total = aggregateData.record_count;
     const facetCategories = aggregateData.facet_categories || [];
 
-    console.log(JSON.stringify(aggregate));
+    // console.log(JSON.stringify(aggregate));
 
     React.useEffect(() => {
         if (total) {

@@ -23,20 +23,6 @@ const listInput = z.object({
 })
 
 
-// const searchForecasts = (search: string) => {
-//     const forecastModel = Prisma.dmmf.datamodel.models.find(model => model.name === 'Forecast')
-//     if (forecastModel) {
-//         const fields = forecastModel.fields
-//         const fieldNames = fields.map(f => f.name)
-//         const query: any = {};
-//         fieldNames.forEach(field => {
-//             query[field] = { contains: search }
-//         })
-//     }
-//     return [];
-// }
-
-
 // ============= ROUTER FUNCTION =============
 
 export const forecastRouter = createTRPCRouter({
@@ -58,7 +44,7 @@ export const forecastRouter = createTRPCRouter({
 
             const match = filters.length > 0 ? { $and: filters } : {};
 
-            console.log('match: ' + JSON.stringify(match));
+            // console.log('match: ' + JSON.stringify(match));
 
             const facets: any = {};
             FACET_SEARCH_CATEGORIES.forEach(facetCategory => {
@@ -93,19 +79,19 @@ export const forecastRouter = createTRPCRouter({
                 const search = {
                     index: 'search_index',
                     text: {
-                      query: searchText,
-                      path: {
-                        wildcard: '*'
-                      }
+                        query: searchText,
+                        path: {
+                            wildcard: '*'
+                        }
                     }
-                  };
+                };
                 pipeline.push({ $search: search });
             }
 
             pipeline.push({ $match: match });
             pipeline.push({ $facet: facets });
 
-            console.log(JSON.stringify(pipeline));
+            // console.log(JSON.stringify(pipeline));
 
             const aggregate = { pipeline: pipeline };
 
@@ -136,42 +122,6 @@ export const forecastRouter = createTRPCRouter({
             });
             return searchResult;
 
-        }),
-    getForecasts: publicProcedure
-        .input(listInput)
-        .query(({ input, ctx }) => {
-            return ctx.prisma.forecast.findMany({
-                skip: (input.page - 1) * 3,
-                take: 3,
-                orderBy: input.sort,
-                where: {
-                    AND: [
-                        { OR: input.filter.new_requirement },
-                        { OR: input.filter.estimated_value },
-                        { OR: input.filter.past_set_aside },
-                    ]
-                    // OR: input.search ? [
-                    //     {number: {search: input.search}},
-                    //     {contract_vehicle: {search: input.search}},
-                    //     {incumbent_contractor: {search: input.search}},
-                    //     {length_of_performance: {search: input.search}},
-                    //     {long_description: {search: input.search}},
-                    // ] : undefined
-                },
-            });
-        }),
-    getTotalResults: publicProcedure
-        .input(listInput)
-        .query(({ input, ctx }) => {
-            return ctx.prisma.forecast.count({
-                where: {
-                    AND: [
-                        { OR: input.filter.new_requirement },
-                        { OR: input.filter.estimated_value },
-                        { OR: input.filter.past_set_aside },
-                    ]
-                },
-            });
         }),
     getById: publicProcedure
         .input(z.object({ id: z.string() }))
