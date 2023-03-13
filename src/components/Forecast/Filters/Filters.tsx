@@ -57,7 +57,6 @@ const Filters: React.FC<Props> = (props) => {
                     className='filter-accordion'
                     multiselectable={true}
                     items={facetCategories.map(fc => {
-                        console.log(fc)
                         return {
                             id: fc.name,
                             title: fc.label,

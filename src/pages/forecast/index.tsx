@@ -44,26 +44,6 @@ const ForecastList: NextPage = () => {
     // =================== HELPER FUNCTIONS ===================
 
     /**
-     * Helper function that converts the filter state in this component
-     * to a definition for the tRPC query filter specifications.
-     * 
-     * @returns tRPC useQuery() readable filter constraints
-     */
-    const convert = (filters: FilterState) => {
-        return {
-            new_requirement: filters.new_requirement.map(f => {
-                return { new_requirement: { equals: f } };
-            }),
-            estimated_value: filters.estimated_value.map(f => {
-                return { estimated_value: { equals: f } };
-            }),
-            past_set_aside: filters.past_set_aside.map(f => {
-                return { past_set_aside: { equals: f } };
-            }),
-        }
-    }
-
-    /**
      * Helper function that locates where in the complex array the inputted
      * filter value is located.
      * 
@@ -88,8 +68,6 @@ const ForecastList: NextPage = () => {
      * helps make sure filters are being removed or added in the proper location.
      */
     const updateFilters = (field: string, value: string, event?: React.ChangeEvent<HTMLInputElement>, remove?: boolean) => {
-        console.log(filters)
-        console.log(field)
         let newFilters = filters;
         if (filters.hasOwnProperty(field)) {
             const f: any = filters;
@@ -176,7 +154,7 @@ const ForecastList: NextPage = () => {
 
     const input = {
         search: searchQuery,
-        filter: convert(filters),
+        filter: filters,
         sort: { number: -1 },
         page: page
     }
@@ -186,8 +164,6 @@ const ForecastList: NextPage = () => {
     const data = aggregateData.documents;
     const total = aggregateData.record_count;
     const facetCategories = aggregateData.facet_categories || [];
-
-    // console.log(JSON.stringify(aggregate));
 
     React.useEffect(() => {
         if (total) {

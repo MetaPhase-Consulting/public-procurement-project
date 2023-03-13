@@ -30,21 +30,22 @@ export const forecastRouter = createTRPCRouter({
         .input(listInput)
         .query(({ input, ctx }) => {
 
-            const facetCategoryNames = FACET_SEARCH_CATEGORIES.map(f => f.name);
+            // -------------- Filtering --------------
+
             const props = Object.getOwnPropertyNames(input.filter);
             const enabledFilters = props.filter(prop => (<any[]>input.filter[prop as keyof typeof input.filter]).length > 0)
-
             const filters = enabledFilters.map(filter => {
                 const filterValues = (<any[]>input.filter[filter as keyof typeof input.filter]);
                 const literalFilters = filterValues.map(fv => {
-                    return { $eq: [`$${filter}`, { $literal: fv[filter].equals }] }
+                    return { $eq: [`$${filter}`, { $literal: fv }] }
                 });
                 return { $expr: { $or: literalFilters } };
             });
 
-            const match = filters.length > 0 ? { $and: filters } : {};
 
-            // console.log('match: ' + JSON.stringify(match));
+            // -------------- Search/Filters/Facets --------------
+
+            const match = filters.length > 0 ? { $and: filters } : {};
 
             const facets: any = {};
             FACET_SEARCH_CATEGORIES.forEach(facetCategory => {
@@ -59,7 +60,7 @@ export const forecastRouter = createTRPCRouter({
 
             const skip = (input.page - 1) * 3;
 
-            facets.documents = [ {
+            facets.documents = [{
                 $skip: skip,
             }, {
                 $limit: 3,
@@ -74,7 +75,6 @@ export const forecastRouter = createTRPCRouter({
             const pipeline = [];
 
             const searchText = (input.search || '').trim();
-
             if (searchText.length > 0) {
                 const search = {
                     index: 'search_index',
@@ -91,28 +91,28 @@ export const forecastRouter = createTRPCRouter({
             pipeline.push({ $match: match });
             pipeline.push({ $facet: facets });
 
-            // console.log(JSON.stringify(pipeline));
-
             const aggregate = { pipeline: pipeline };
 
             const retVal = ctx.prisma.forecast.aggregateRaw(aggregate);
+
+
+            // -------------- Return Value --------------
 
             const searchResult = retVal.then((rec: Prisma.JsonObject) => {
                 const r = rec[0] as any;
                 const documents = r.documents;
                 const record_count = (<any[]>r.metadata)[0].total_records;
                 const facet_categories: FacetCategory[] = FACET_SEARCH_CATEGORIES.map(facetCategory => {
-                    const fc: FacetCategory = {
+                    return {
                         name: facetCategory.name,
                         label: facetCategory.label,
                         facets: (<any[]>r[facetCategory.name]).map(facet => {
                             return {
                                 label: facet._id,
-                                doc_count: facet.count
+                                doc_count: facet.count,
                             };
                         })
-                    };
-                    return fc;
+                    } as FacetCategory;
                 });
                 return {
                     documents: documents as any[],
@@ -120,8 +120,8 @@ export const forecastRouter = createTRPCRouter({
                     facet_categories: facet_categories
                 } as SearchResult;
             });
-            return searchResult;
 
+            return searchResult;
         }),
     getById: publicProcedure
         .input(z.object({ id: z.string() }))
