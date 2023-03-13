@@ -1,16 +1,18 @@
-import React, { FormEvent } from 'react';
+import React from 'react';
+import type { FormEvent } from 'react';
 import { type NextPage } from 'next';
 
 import { CardGroup, Grid, GridContainer, Pagination, Search } from '@trussworks/react-uswds';
 
-import { Forecast } from '../../utils/types';
 import { api } from '../../utils/api';
+import type { Forecast } from '../../utils/types';
 import Layout from '../../components/Layout/Layout';
 import Filters from '../../components/Forecast/Filters/Filters';
 import ListingCard from '../../components/Forecast/ForecastInfo/ForecastCard';
 import SubNavigation from '../../components/Layout/SubNavigation';
 import PageHeader from '../../components/Layout/PageHeader';
 import FilterChip from '../../components/Forecast/Filters/FilterChip';
+import type { SearchResult } from '../../components/Search/Facet';
 
 type FilterState = {
     new_requirement: string[],
@@ -40,26 +42,6 @@ const ForecastList: NextPage = () => {
 
 
     // =================== HELPER FUNCTIONS ===================
-
-    /**
-     * Helper function that converts the filter state in this component
-     * to a definition for the tRPC query filter specifications.
-     * 
-     * @returns tRPC useQuery() readable filter constraints
-     */
-    const convert = (filters: FilterState) => {
-        return {
-            new_requirement: filters.new_requirement.map(f => {
-                return { new_requirement: { equals: f } };
-            }),
-            estimated_value: filters.estimated_value.map(f => {
-                return { estimated_value: { equals: f } };
-            }),
-            past_set_aside: filters.past_set_aside.map(f => {
-                return { past_set_aside: { equals: f } };
-            }),
-        }
-    }
 
     /**
      * Helper function that locates where in the complex array the inputted
@@ -172,17 +154,16 @@ const ForecastList: NextPage = () => {
 
     const input = {
         search: searchQuery,
-        filter: convert(filters),
+        filter: filters,
         sort: { number: -1 },
         page: page
     }
-//    const gc = api.forecast.getForecasts.useQuery(input);
-    const aggregate = api.forecast.getForecastsAggregate.useQuery(input);
-    const data = aggregate.data ? (aggregate.data[0] as any).resultData : [];
-    const pageInfo = aggregate.data && (aggregate.data[0] as any).pageInfo;
-    const total = pageInfo ? (pageInfo[0] ? pageInfo[0].totalRecords : 0) : 0;
 
-    console.log(JSON.stringify(aggregate));
+    const aggregate = api.forecast.getForecastsAggregate.useQuery(input);
+    const aggregateData = aggregate.data as SearchResult || {};
+    const data = aggregateData.documents;
+    const total = aggregateData.record_count;
+    const facetCategories = aggregateData.facet_categories || [];
 
     React.useEffect(() => {
         if (total) {
@@ -208,6 +189,7 @@ const ForecastList: NextPage = () => {
                         <Grid tablet={{ col: 6 }} desktop={{ col: 3 }}>
                             <div className='pr-8'>
                                 <Filters
+                                    facetCategories={facetCategories}
                                     updateFilters={updateFilters}
                                     getFilterIndex={getFilterIndex}
                                     clearFilters={clearFilters}

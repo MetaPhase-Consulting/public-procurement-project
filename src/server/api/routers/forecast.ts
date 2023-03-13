@@ -1,6 +1,8 @@
-// import { Prisma } from '@prisma/client';
-import { z } from 'zod';
+import type { Prisma } from '@prisma/client';
 import { createTRPCRouter, publicProcedure } from '../trpc';
+import { z } from 'zod';
+import { FACET_SEARCH_CATEGORIES } from '../../../components/Search/Facet';
+import type { FacetCategory, SearchResult } from '../../../components/Search/Facet';
 
 
 // ============= SUPPORTING FUNCTIONS/TYPES =============
@@ -21,20 +23,6 @@ const listInput = z.object({
 })
 
 
-// const searchForecasts = (search: string) => {
-//     const forecastModel = Prisma.dmmf.datamodel.models.find(model => model.name === 'Forecast')
-//     if (forecastModel) {
-//         const fields = forecastModel.fields
-//         const fieldNames = fields.map(f => f.name)
-//         const query: any = {};
-//         fieldNames.forEach(field => {
-//             query[field] = { contains: search }
-//         })
-//     }
-//     return [];
-// }
-
-
 // ============= ROUTER FUNCTION =============
 
 export const forecastRouter = createTRPCRouter({
@@ -42,36 +30,37 @@ export const forecastRouter = createTRPCRouter({
         .input(listInput)
         .query(({ input, ctx }) => {
 
+            // -------------- Filtering --------------
+
             const props = Object.getOwnPropertyNames(input.filter);
             const enabledFilters = props.filter(prop => (<any[]>input.filter[prop as keyof typeof input.filter]).length > 0)
-
             const filters = enabledFilters.map(filter => {
                 const filterValues = (<any[]>input.filter[filter as keyof typeof input.filter]);
                 const literalFilters = filterValues.map(fv => {
-                    return { $eq: [`$${filter}`, { $literal: fv[filter].equals }] }
+                    return { $eq: [`$${filter}`, { $literal: fv }] }
                 });
                 return { $expr: { $or: literalFilters } };
             });
 
+
+            // -------------- Search/Filters/Facets --------------
+
             const match = filters.length > 0 ? { $and: filters } : {};
 
-            console.log('match: ' + JSON.stringify(match));
-
             const facets: any = {};
-            props.forEach(filterName => {
-                facets[filterName as keyof typeof facets] = [{
+            FACET_SEARCH_CATEGORIES.forEach(facetCategory => {
+                facets[facetCategory.name as keyof typeof facets] = [{
                     $group: {
-                        _id: `$${filterName}`,
+                        _id: `$${facetCategory.name}`,
                         count: { $sum: 1 },
-                    }
-                }, {
-                    $sort: { _id: 1 }
+                    },
                 }]
+                facetCategory.sort ? facetCategory.sort(facets[facetCategory.name]) : facets[facetCategory.name].push({ $sort: { _id: 1 } });
             });
 
             const skip = (input.page - 1) * 3;
 
-            facets.resultData = [ {
+            facets.documents = [{
                 $skip: skip,
             }, {
                 $limit: 3,
@@ -79,73 +68,60 @@ export const forecastRouter = createTRPCRouter({
                 $sort: input.sort
             }];
 
-            facets.pageInfo = [{
-                $count: 'totalRecords',
+            facets.metadata = [{
+                $count: 'total_records',
             }];
 
             const pipeline = [];
 
             const searchText = (input.search || '').trim();
-
             if (searchText.length > 0) {
                 const search = {
                     index: 'search_index',
                     text: {
-                      query: searchText,
-                      path: {
-                        wildcard: '*'
-                      }
+                        query: searchText,
+                        path: {
+                            wildcard: '*'
+                        }
                     }
-                  };
+                };
                 pipeline.push({ $search: search });
             }
 
             pipeline.push({ $match: match });
             pipeline.push({ $facet: facets });
 
-            console.log(JSON.stringify(pipeline));
-
             const aggregate = { pipeline: pipeline };
 
             const retVal = ctx.prisma.forecast.aggregateRaw(aggregate);
-            return retVal;
 
-        }),
-    getForecasts: publicProcedure
-        .input(listInput)
-        .query(({ input, ctx }) => {
-            return ctx.prisma.forecast.findMany({
-                skip: (input.page - 1) * 3,
-                take: 3,
-                orderBy: input.sort,
-                where: {
-                    AND: [
-                        { OR: input.filter.new_requirement },
-                        { OR: input.filter.estimated_value },
-                        { OR: input.filter.past_set_aside },
-                    ]
-                    // OR: input.search ? [
-                    //     {number: {search: input.search}},
-                    //     {contract_vehicle: {search: input.search}},
-                    //     {incumbent_contractor: {search: input.search}},
-                    //     {length_of_performance: {search: input.search}},
-                    //     {long_description: {search: input.search}},
-                    // ] : undefined
-                },
+
+            // -------------- Return Value --------------
+
+            const searchResult = retVal.then((rec: Prisma.JsonObject) => {
+                const r = rec[0] as any;
+                const documents = r.documents;
+                const record_count = (<any[]>r.metadata)[0].total_records;
+                const facet_categories: FacetCategory[] = FACET_SEARCH_CATEGORIES.map(facetCategory => {
+                    return {
+                        name: facetCategory.name,
+                        label: facetCategory.label,
+                        facets: (<any[]>r[facetCategory.name]).map(facet => {
+                            return {
+                                label: facet._id,
+                                doc_count: facet.count,
+                            };
+                        })
+                    } as FacetCategory;
+                });
+                return {
+                    documents: documents as any[],
+                    record_count: record_count as number,
+                    facet_categories: facet_categories
+                } as SearchResult;
             });
-        }),
-    getTotalResults: publicProcedure
-        .input(listInput)
-        .query(({ input, ctx }) => {
-            return ctx.prisma.forecast.count({
-                where: {
-                    AND: [
-                        { OR: input.filter.new_requirement },
-                        { OR: input.filter.estimated_value },
-                        { OR: input.filter.past_set_aside },
-                    ]
-                },
-            });
+
+            return searchResult;
         }),
     getById: publicProcedure
         .input(z.object({ id: z.string() }))

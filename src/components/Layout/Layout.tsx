@@ -31,7 +31,7 @@ const Layout: React.FC<Props> = props => {
             <main>
                 <GovBanner />
                 <Header dark={props.darkHeader}/>
-                <div style={{ minHeight: 'calc(100vh - 500px)', height: '100%' }} className={className + " w-full"}>
+                <div style={{ minHeight: 'calc(100vh - 500px)', height: '100%' }} className={className + ' w-full'}>
                     {children}
                 </div>
                 <Footer />

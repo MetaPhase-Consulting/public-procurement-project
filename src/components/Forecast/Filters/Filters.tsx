@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Accordion, Checkbox } from '@trussworks/react-uswds';
-import type { FilterSection } from './FilterSections';
-import { newRequirement, estimatedValue, pastSetAside } from './FilterSections';
+import type { Facet, FacetCategory } from '../../Search/Facet';
 
 interface Props {
+    facetCategories: FacetCategory[];
     updateFilters: (field: string, value: string, event: React.ChangeEvent<HTMLInputElement>) => void;
     getFilterIndex: (field: string, value: string) => any;
     clearFilters: (field?: string) => void;
@@ -17,21 +17,21 @@ interface Props {
  * various input options to specificy the constraints (e.g., checkbox).
  */
 const Filters: React.FC<Props> = (props) => {
-    const { updateFilters, getFilterIndex, clearFilters } = props;
+    const { facetCategories, updateFilters, getFilterIndex, clearFilters } = props;
 
-    const createCheckboxes = (sections: FilterSection[]) => {
+    const createCheckboxes = (facets: Facet[], field: string) => {
         return (
             <div className='-mx-2'>
-                {sections.map((o, i) => {
+                {facets.map((o, i) => {
                     return (
                         <Checkbox
-                            key={o.id}
-                            id={o.id}
-                            name={o.id}
-                            label={o.label ?? o.value}
+                            key={o.label}
+                            id={o.label}
+                            name={o.label}
+                            label={`${o.label} (${o.doc_count})`}
                             className={i == 0 ? '-mt-4 checkbox-label' : 'checkbox-label'}
-                            onChange={(event) => updateFilters(o.field, o.value, event)}
-                            checked={getFilterIndex(o.field, o.value) > -1}
+                            onChange={(event) => updateFilters(field, o.label, event)}
+                            checked={getFilterIndex(field, o.label) > -1}
                         />
                     )
                 })}
@@ -56,26 +56,16 @@ const Filters: React.FC<Props> = (props) => {
                 <Accordion
                     className='filter-accordion'
                     multiselectable={true}
-                    items={[{
-                        id: 'new-requirement',
-                        title: 'New Requirement',
-                        content: createCheckboxes(newRequirement),
-                        // TODO: Only expand by default if there are checked boxes inside
-                        expanded: true,
-                        headingLevel: 'h6',
-                    }, {
-                        id: 'estimated-value',
-                        title: 'Estimated Value',
-                        content: createCheckboxes(estimatedValue),
-                        expanded: true,
-                        headingLevel: 'h6',
-                    }, {
-                        id: 'past-set-aside',
-                        title: 'Past Set Aside',
-                        content: createCheckboxes(pastSetAside),
-                        expanded: true,
-                        headingLevel: 'h6',
-                    }]} />
+                    items={facetCategories.map(fc => {
+                        return {
+                            id: fc.name,
+                            title: fc.label,
+                            content: createCheckboxes(fc.facets || [], fc.name || ''),
+                            expanded: true,
+                            headingLevel: 'h6'
+                        }
+                    })}
+                />
             </div>
         </div>
     );
