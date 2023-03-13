@@ -71,10 +71,10 @@ export const forecastRouter = createTRPCRouter({
 
             const skip = (input.page - 1) * 3;
 
-            facets.resultData = [{
-                $limit: 3,
-            }, {
+            facets.resultData = [ {
                 $skip: skip,
+            }, {
+                $limit: 3,
             }, {
                 $sort: input.sort
             }];
